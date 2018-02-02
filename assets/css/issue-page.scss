@@ -1,0 +1,62 @@
+#user-created, #user-assigned {
+  display: inline-block;
+  margin: 0;
+  padding: 3px;
+  font-size: 1.0em;
+}
+
+#user-created-input, #user-assigned-input {
+  display: none;
+  padding: 3px;
+  margin: 0;
+}
+
+#issue-description {
+  width: 100%;
+  height: 200px;
+  padding: 10px;
+}
+
+#issue-name {
+  display: inline-block;
+  font-size: 1.5em;
+  padding: 5px;
+  margin-left: 10px;
+}
+
+#issue-name-input {
+  display: none;
+  font-size: 1.5em;
+  padding: 5px;
+  margin-left: 10px;
+}
+
+.issue-page {
+  padding: 25px;
+}
+
+.issue-page .keys-float {
+  padding: 3px;
+}
+
+.issue-page .new-comment {
+  margin: 20px 5px;
+}
+
+.issue-page .new-comment textarea {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px;
+}
+
+.changeable {
+  border:1px solid white;
+}
+
+.changeable:hover {
+  border:1px solid #a6a6a6;
+  -webkit-box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  border-radius: 3px;
+  cursor: pointer;
+}

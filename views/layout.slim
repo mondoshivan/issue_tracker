@@ -1,0 +1,31 @@
+doctype html
+html lang="en"
+  head
+    title Issue Tracker
+    meta charset="utf-8"
+    meta name="keywords" content="stock,screener"
+    meta name="author" content="Mondoshivan"
+    link rel="stylesheet" href="reset.css"
+    link rel="stylesheet" href="backlog.css" media="screen, projection"
+    link rel="stylesheet" href="board.css" media="screen, projection"
+    link rel="stylesheet" href="general.css" media="screen, projection"
+    link rel="stylesheet" href="issue-page.css" media="screen, projection"
+
+    / jQuery
+    link href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" media="screen, projection" rel="stylesheet"
+    script src="http://code.jquery.com/jquery-1.8.2.min.js"
+    script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"
+
+    script src="lib/utils.js"
+
+  body
+    header
+      == slim :header
+
+    #content
+      section
+        == styled_flash
+      == yield
+
+    footer
+      == slim :footer
