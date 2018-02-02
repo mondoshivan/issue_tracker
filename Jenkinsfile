@@ -1,12 +1,19 @@
 pipeline {
     agent {
-        docker { image 'rbenv:2.2.9' }
+        docker { image 'mondoshivan/rbenv:2.2.9' }
     }
     stages {
-        stage('Test') {
+        stage('Gem') {
             steps {
-                sh 'rspec spec/spec_helper.rb'
+                sh 'bundle install'
             }
         }
     }
+    stages {
+            stage('Test') {
+                steps {
+                    sh 'rspec spec/spec_helper.rb'
+                }
+            }
+     }
 }
