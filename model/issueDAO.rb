@@ -16,7 +16,7 @@ class IssueDAO
     #############################
     def findAll()
         results = []
-        @database.query("SELECT * FROM issues").each do |row|
+        @database.query('SELECT * FROM issues').each do |row|
            results.push(Issue.new(row)) 
         end
         return results
