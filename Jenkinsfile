@@ -1,11 +1,9 @@
 pipeline {
-    agent {
-
-    }
+    agent any
     stages {
         stage('Test') {
             steps {
-                sh 'bundle install test'
+                sh 'bundle install --without "production development"'
                 sh 'rspec spec/spec_helper.rb'
             }
         }
@@ -15,5 +13,5 @@ pipeline {
                 sh 'docker push mondoshivan/issue_tracker:latest'
             }
         }
-     }
+    }
 }
