@@ -12,10 +12,12 @@ COPY public /var/issue_tracker/public
 COPY views /var/issue_tracker/views
 COPY Gemfile /var/issue_tracker/Gemfile
 COPY config.ru /var/issue_tracker/config.ru
-COPY start.sh /var/issue_tracker/start.sh
+COPY start.sh /
+
+RUN chmod 777 /start.sh
+RUN chmod -R 777 /var/issue_tracker
 
 RUN bash -l -c "bundle install --with production"
 
 EXPOSE 4567
-ENTRYPOINT ['./start.sh']
-CMD ['ruby', 'config.ru']
+CMD ["/start.sh"]

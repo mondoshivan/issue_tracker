@@ -1,3 +1,5 @@
-#!/bin/bash
+#!/bin/bash -i
 
-/bin/bash -l -c "$*"
+echo "starting..."
+
+rackup -p 4567 /var/issue_tracker/config.ru

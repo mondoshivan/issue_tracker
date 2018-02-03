@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'sinatra'
 gem 'sinatra-flash'
+gem 'rack-protection'
 
 group :production, :development do
     gem 'json'
@@ -10,11 +11,8 @@ group :production, :development do
     gem 'dm-sqlite-adapter'
     gem 'dm-serializer'
     gem 'sass'
-    gem 'chartkick'
-    gem 'nokogiri'
-    gem 'coffee-script'
     gem 'therubyracer'
-    gem 'bcrypt-ruby', :require => 'bcrypt'
+    gem 'coffee-script'
 end
 
 group :development do
