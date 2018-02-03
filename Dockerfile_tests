@@ -1,5 +1,7 @@
 FROM mondoshivan/rbenv:2.2.9
 
+RUN apt-get install -y libsqlite3-dev
+
 ENV APP_HOME /var/issue_tracker
 ENV HOME /root
 
