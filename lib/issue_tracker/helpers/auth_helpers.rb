@@ -34,14 +34,14 @@ module Sinatra
           flash[:notice] = "You are now logged in as #{@user.name}"
           redirect to('/')
         else
-          flash[:notice] = "The username or password you entered are incorrect"
+          flash[:notice] = 'The username or password you entered are incorrect'
           redirect to('/login')
         end
       end
 
       app.get '/logout' do
         session.clear
-        flash[:notice] = "You have now logged out"
+        flash[:notice] = 'You have now logged out'
         redirect to('/')
       end
     end
