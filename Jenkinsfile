@@ -13,5 +13,10 @@ pipeline {
                 sh 'docker push mondoshivan/issue_tracker:latest'
             }
         }
+        stage('Push') {
+            steps {
+                sh 'docker push mondoshivan/issue_tracker:latest'
+            }
+        }
     }
 }
