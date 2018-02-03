@@ -1,6 +1,5 @@
-require_relative './interfaces.rb'
 
-require_relative '../model/database'
-require_relative '../model/issue'
-require_relative '../model/issueDAO'
-require_relative '../model/daoFactory'
+lib = File.expand_path('../../spec', __FILE__)
+$:.unshift(lib) unless $:.include?(lib)
+
+require 'issue_tracker/controller_spec.rb'

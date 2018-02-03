@@ -1,4 +1,8 @@
+require 'sinatra/base'
+require 'sinatra/reloader'
+require 'sinatra/flash'
 
+require 'issue_tracker/helpers/auth_helpers'
 
 class Controller < Sinatra::Base
 

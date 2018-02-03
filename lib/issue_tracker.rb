@@ -5,18 +5,12 @@
 # Includes #
 ############
 
-require 'sinatra/base'
-require 'sinatra/reloader'
-require 'sinatra/flash'
 require 'slim'
 require 'dm-core'
 require 'dm-migrations'
 require 'dm-serializer'
 require 'sass'
 require 'coffee-script'
-
-# Helpers
-require 'issue_tracker/helpers/auth_helpers'
 
 # Controllers
 require 'issue_tracker/controllers/controller'
