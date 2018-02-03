@@ -1,8 +1,10 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
+
+gem 'sinatra'
+gem 'sinatra-flash'
 
 group :production, :development do
     gem 'json'
-    gem 'sinatra'
     gem 'slim'
     gem 'data_mapper'
     gem 'dm-sqlite-adapter'
@@ -12,7 +14,6 @@ group :production, :development do
     gem 'nokogiri'
     gem 'coffee-script'
     gem 'therubyracer'
-    gem 'sinatra-flash'
     gem 'bcrypt-ruby', :require => 'bcrypt'
 end
 
