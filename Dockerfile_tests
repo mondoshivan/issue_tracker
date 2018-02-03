@@ -1,7 +1,5 @@
 FROM mondoshivan/rbenv:2.2.9
 
-RUN apt-get install -y libsqlite3-dev
-
 ENV APP_HOME /var/issue_tracker
 ENV HOME /root
 
@@ -11,14 +9,13 @@ WORKDIR $APP_HOME
 COPY assets $APP_HOME/assets
 COPY lib $APP_HOME/lib
 COPY public $APP_HOME/public
+COPY spec $APP_HOME/spec
 COPY views $APP_HOME/views
 COPY Gemfile $APP_HOME/Gemfile
 COPY config.ru $APP_HOME/config.ru
 
 RUN chmod -R 755 /var/issue_tracker
 
-RUN bash -l -c "bundle install --with production"
+RUN bash -l -c "bundle install --with test"
 
-ENV PORT 80
-EXPOSE 80
-CMD /bin/bash -i -c "rackup -p ${PORT} -o '0.0.0.0' -E production ${APP_HOME}/config.ru"
+CMD /bin/bash -i -c "rspec ${APP_HOME}/spec/spec_helper.rb"
