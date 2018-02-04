@@ -17,7 +17,7 @@ class DialogController {
             controller.dialogController.hide();
         });
         
-        document.getElementById("new-issue").addEventListener('click', function (e) {
+        $("#new-issue").find("button[type='button']").click(function() {
             let project = Utils.getDropDownSelection(document.getElementById("project"));
             let type = Utils.getDropDownSelection(document.getElementById("type"));
             let issueName = document.getElementById("name");
@@ -47,6 +47,8 @@ class DialogController {
                 "userAssigned": controller.session.userId,
                 "position": "backlog"
             });
+
+            $("#new-issue").submit();
 
             controller.dialogController.hide();
             controller.refresh(null);

@@ -18,11 +18,17 @@ require 'issue_tracker/controllers/controller'
 require 'issue_tracker/controllers/backlog_controller'
 require 'issue_tracker/controllers/board_controller'
 require 'issue_tracker/controllers/issue_controller'
+require 'issue_tracker/controllers/project_controller'
 require 'issue_tracker/controllers/user_controller'
 require 'issue_tracker/controllers/asset_handler'
 
 # Models
 require 'issue_tracker/models/user'
+require 'issue_tracker/models/issue'
+require 'issue_tracker/models/project'
+require 'issue_tracker/models/state'
+require 'issue_tracker/models/type'
+
 
 class IssueTracker < Controller
 
@@ -58,6 +64,14 @@ class IssueTracker < Controller
       User.create(first: 'Edward', second: 'Snowden')
       User.create(first: 'Steve', second: 'Jobs')
       User.create(first: 'Bill', second: 'Gates')
+    end
+    if Project.all.size == 0
+      Project.create(acronym: 'WEB', name: 'Web Development')
+      Project.create(acronym: 'DB', name: 'Datenbanken')
+    end
+    if Type.all.size == 0
+      Type.create(name: 'Bug')
+      Type.create(name: 'Task')
     end
   end
   configure :test do

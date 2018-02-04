@@ -23,6 +23,7 @@ class Controller < Sinatra::Base
 
   before do
     logger.info "[params] #{params.inspect}"
+    logger.info "[request] #{request.env['REQUEST_URI ']}"
   end
 
 end

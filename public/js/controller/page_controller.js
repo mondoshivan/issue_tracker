@@ -236,7 +236,11 @@ class PageController {
     start() {
         getData('/user/all', function(data){
             controller.factory.users = data;
+            getData('/project/all', function(data){
+                controller.factory.projects = data;
+            });
         });
+
 
         this.createHeaderVisibilityEventHandler();
     }

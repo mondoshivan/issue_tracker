@@ -6,10 +6,8 @@ class User
   include DataMapper::Resource
 
   property :id, Serial
-  property :first, String
-  property :second, String
-  property :admin, Boolean, :default  => false
+  property :first, String, required: true
+  property :second, String, required: true
+  property :admin, Boolean, required: true, default: false
+
 end
-
-
-

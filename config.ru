@@ -19,4 +19,5 @@ map('/') { run IssueTracker }
 map('/backlog') { run BacklogController }
 map('/board') { run BoardController }
 map('/issue') { run IssueController }
+map('/project') { run ProjectController }
 map('/user') { run UserController }

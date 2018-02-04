@@ -1,4 +1,5 @@
 require 'issue_tracker/controllers/controller'
+require 'issue_tracker/models/issue'
 
 class IssueController < Controller
 
@@ -6,6 +7,16 @@ class IssueController < Controller
     @page_title = 'Issue'
     @controller = 'IssueController'
     slim :issue
+  end
+
+  post '/' do
+    puts params
+    puts request.inspect
+    @issue = Issue.create
+    puts @issue
+    puts Issue.all.inspect
+    # redirect to("?project=#{@issue.project}&id=#{@issue.project_id}")
+    redirect to('../backlog')
   end
 
 end
