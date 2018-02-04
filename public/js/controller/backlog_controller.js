@@ -163,8 +163,8 @@ class BacklogController extends PageController {
         super.loadLeftColumn();
 
         // root element
-        let projectsElement = document.getElementById('projects');
-        Utils.removeAllChilds(projectsElement);
+        let columnLeft = document.getElementById('column-left');
+        Utils.removeAllChilds(columnLeft);
 
         // show all projects
         let projectElement = document.createElement("div");
@@ -173,7 +173,7 @@ class BacklogController extends PageController {
         let projectName = document.createElement("h2");
         projectName.appendChild(document.createTextNode("All Projects"));
         projectElement.appendChild(projectName);
-        projectsElement.appendChild(projectElement);
+        columnLeft.appendChild(projectElement);
 
         // show individual projects
         for (let i=0; i<projects.length; i++) {
@@ -205,7 +205,7 @@ class BacklogController extends PageController {
                 )
             );
 
-            projectsElement.appendChild(projectElement);
+            columnLeft.appendChild(projectElement);
         }
     }
     

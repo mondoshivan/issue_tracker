@@ -2,9 +2,10 @@ let controller = null;
 
 class PageController {
     
-    constructor(data) {
+    constructor() {
         this.session = new Session();
-        this.factory = new Factory(data);
+        this.factory = new Factory();
+
         this.dialogController = new DialogController(this);
         this.quickFilter = new QuickFilter([
             new Filter(
@@ -233,6 +234,10 @@ class PageController {
     }
 
     start() {
+        getData('/user/all', function(data){
+            controller.factory.users = data;
+        });
+
         this.createHeaderVisibilityEventHandler();
     }
     

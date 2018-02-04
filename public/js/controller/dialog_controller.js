@@ -17,7 +17,7 @@ class DialogController {
             controller.dialogController.hide();
         });
         
-        document.getElementById("new-issue").addEventListener('click', function (e) {    
+        document.getElementById("new-issue").addEventListener('click', function (e) {
             let project = Utils.getDropDownSelection(document.getElementById("project"));
             let type = Utils.getDropDownSelection(document.getElementById("type"));
             let issueName = document.getElementById("name");

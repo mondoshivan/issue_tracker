@@ -1,20 +1,23 @@
 
 class Factory {
     
-    constructor(data) {
+    constructor() {
         this.issues = [];
-        this.types = data.types;
-        this.positions = data.positions;
-        this.users = data.users;
-        this.states = data.states;
-        this.projects = data.projects;
-        
-        this.parseIssues(data.issues);
+        this.types = [];
+        this.positions = [];
+        this.users = [];
+        this.states = [];
+        this.projects = [];
+    }
+
+    setIssues(issues) {
+        this.issues = issues;
+        this.parseIssues(issues);
     }
     
-    parseIssues(data) {
-        for (let i=0; i<data.length; i++) {
-            this.newIssue(data[i]);
+    parseIssues(issues) {
+        for (let i=0; i<issues.length; i++) {
+            this.newIssue(issues[i]);
         }
     }
 

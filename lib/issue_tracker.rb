@@ -5,6 +5,7 @@
 # Includes #
 ############
 
+require 'json'
 require 'slim'
 require 'dm-core'
 require 'dm-migrations'
@@ -17,6 +18,7 @@ require 'issue_tracker/controllers/controller'
 require 'issue_tracker/controllers/backlog_controller'
 require 'issue_tracker/controllers/board_controller'
 require 'issue_tracker/controllers/issue_controller'
+require 'issue_tracker/controllers/user_controller'
 require 'issue_tracker/controllers/asset_handler'
 
 # Models
@@ -51,7 +53,12 @@ class IssueTracker < Controller
     DataMapper.setup(:default, "sqlite3://#{settings.root}/development.db")
     DataMapper.auto_migrate!
 
-    User.create(name: 'admin', password: 'admin', admin: true) if User.all.size == 0
+    if User.all.size == 0
+      User.create(first: 'Mark', second: 'Zuckerberg')
+      User.create(first: 'Edward', second: 'Snowden')
+      User.create(first: 'Steve', second: 'Jobs')
+      User.create(first: 'Bill', second: 'Gates')
+    end
   end
   configure :test do
 

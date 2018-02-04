@@ -6,8 +6,8 @@ class User
   include DataMapper::Resource
 
   property :id, Serial
-  property :name, String
-  property :password, String
+  property :first, String
+  property :second, String
   property :admin, Boolean, :default  => false
 end
 
