@@ -14,11 +14,17 @@ require 'coffee-script'
 
 # Controllers
 require 'issue_tracker/controllers/controller'
+require 'issue_tracker/controllers/backlog_controller'
+require 'issue_tracker/controllers/board_controller'
+require 'issue_tracker/controllers/issue_controller'
+require 'issue_tracker/controllers/asset_handler'
 
 # Models
 require 'issue_tracker/models/user'
 
 class IssueTracker < Controller
+
+  use AssetHandler
 
 
   #################
@@ -57,8 +63,6 @@ class IssueTracker < Controller
   ##################
 
   get '/' do
-    @users = User.all
-    @users.size
     slim :index
   end
 
@@ -68,5 +72,4 @@ class IssueTracker < Controller
 
   # directly executed (then we need to call 'run') or by another file?
   run! if __FILE__ == $0
-
 end

@@ -1,0 +1,57 @@
+link rel="stylesheet" href="css/issue.css"
+script src="js/controller/issue_controller.js"
+
+#issue-page
+  div
+    a id="issue-id" class="issue-id"
+    form class="inline-block " method="post" action="javascript:void(0);"
+      label id="issue-name" class="changeable" for="issue-name-input"
+      input id="issue-name-input" class="commitable" name="issue-name"
+    .separator-container
+      h2 class="separator-name" Details
+      .separator
+        hr
+    .key-value-container
+      span class="keys-inline" Status:
+      .inline-block
+        #issue-status class="dropdown"
+          .dropdown-selection
+          .dropdown-content
+    .key-value-container
+      span class="keys-inline" Position:
+      .inline-block
+        #issue-position class="dropdown"
+          .dropdown-selection
+          .dropdown-content
+  div
+    .separator-container
+      h2 class="separator-name" Description
+      .separator
+        hr
+    form method="post" action="javascript:void(0);"
+      textarea id="issue-description" name="description"
+  div
+    .separator-container
+      h2 class="separator-name" People
+      div class="separator"
+        hr
+    .key-value-container
+      .keys-float Assigned:
+      .value-width
+        form method="post" action="javascript:void(0);" autocomplete="off"
+          div id="user-assigned" class="changeable"
+          input type="text" id="user-assigned-input" class="commitable" accesskey="a" value="" title="Name of a user" maxlength="50" list="user-assigned-options" name="user-assigned"
+          datalist id="user-assigned-options"
+    .key-value-container
+      .keys-float Created:
+      .value-width
+        form method="post" action="javascript:void(0);" autocomplete="off"
+          p id="user-created" class="changeable"
+          input type="text" id="user-created-input" class="commitable" accesskey="c" value="" title="Name of a user" maxlength="50" list="user-created-options" name="user-created"
+          datalist id="user-created-options"
+  div
+    .separator-container
+      h2 class="separator-name" Comments
+      div class="separator"
+        hr
+    #issue-comments

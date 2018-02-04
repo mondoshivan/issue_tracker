@@ -2,30 +2,61 @@ doctype html
 html lang="en"
   head
     title Issue Tracker
+
     meta charset="utf-8"
-    meta name="keywords" content="stock,screener"
     meta name="author" content="Mondoshivan"
-    link rel="stylesheet" href="reset.css"
-    link rel="stylesheet" href="backlog.css" media="screen, projection"
-    link rel="stylesheet" href="board.css" media="screen, projection"
-    link rel="stylesheet" href="general.css" media="screen, projection"
-    link rel="stylesheet" href="issue-page.css" media="screen, projection"
+    meta name="description" content="Issue tracking tool for agile project coordination"
+    meta name="keywords" content="Issue, Project, Coordination, Management, Report, Comments, Agile, Backlog, Board"
+    meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+
+    / CSS
+    link rel="stylesheet" href="css/general.css"
+
+    / Fav Icon
+    link rel="apple-touch-icon" sizes="57x57" href="/img/fav/apple-icon-57x57.png"
+    link rel="apple-touch-icon" sizes="60x60" href="/img/fav/apple-icon-60x60.png"
+    link rel="apple-touch-icon" sizes="72x72" href="/img/fav/apple-icon-72x72.png"
+    link rel="apple-touch-icon" sizes="76x76" href="/img/fav/apple-icon-76x76.png"
+    link rel="apple-touch-icon" sizes="114x114" href="/img/fav/apple-icon-114x114.png"
+    link rel="apple-touch-icon" sizes="120x120" href="/img/fav/apple-icon-120x120.png"
+    link rel="apple-touch-icon" sizes="144x144" href="/img/fav/apple-icon-144x144.png"
+    link rel="apple-touch-icon" sizes="152x152" href="/img/fav/apple-icon-152x152.png"
+    link rel="apple-touch-icon" sizes="180x180" href="/img/fav/apple-icon-180x180.png"
+    link rel="icon" type="image/png" sizes="192x192"  href="/img/fav/android-icon-192x192.png"
+    link rel="icon" type="image/png" sizes="32x32" href="/img/fav/favicon-32x32.png"
+    link rel="icon" type="image/png" sizes="96x96" href="/img/fav/favicon-96x96.png"
+    link rel="icon" type="image/png" sizes="16x16" href="/img/fav/favicon-16x16.png"
+    link rel="manifest" href="/img/fav/manifest.json"
+    meta name="msapplication-TileColor" content="#ffffff"
+    meta name="msapplication-TileImage" content="/img/fav/ms-icon-144x144.png"
+    meta name="theme-color" content="#ffffff<em></em>"
 
     / jQuery
     link href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" media="screen, projection" rel="stylesheet"
     script src="http://code.jquery.com/jquery-1.8.2.min.js"
     script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"
 
-    script src="lib/utils.js"
+    / JS
+    script src="js/lib/utils.js"
+    script src="js/lib/ajax.js"
+    script src="js/lib/issue.js"
+    script src="js/lib/factory.js"
+    script src="js/lib/array.js"
+    script src="js/lib/filter.js"
+    script src="js/lib/quick_filter.js"
+    script src="js/lib/session.js"
+    script src="js/lib/message.js"
+    script src="js/controller/dialog_controller.js"
+    script src="js/controller/page_controller.js"
 
-  body
-    header
-      == slim :header
+  body onload="getData(function(data){ controller = new #{@controller}(data); controller.start();});"
+    == slim :header
 
-    #content
-      section
+    .flex-container
+      div class='flex-item side left'
+      div class='flex-item middle'
         == styled_flash
-      == yield
+        == yield
+      div class='flex-item side right'
 
-    footer
-      == slim :footer
+    == slim :footer

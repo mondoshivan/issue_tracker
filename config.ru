@@ -16,3 +16,6 @@ require 'sinatra/base'
 require 'issue_tracker'
 
 map('/') { run IssueTracker }
+map('/backlog') { run BacklogController }
+map('/board') { run BoardController }
+map('/issue') { run IssueController }
