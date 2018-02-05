@@ -1,14 +1,13 @@
 require 'dm-core'
 require 'dm-migrations'
 
-class Project
+class Sprint
 
   include DataMapper::Resource
 
   property :id, Serial
-  property :name, String, required: true
-  property :acronym, String, required: true
+  property :start, String, required: true
+  property :end, String, required: true
 
   has n, :issues
-
 end

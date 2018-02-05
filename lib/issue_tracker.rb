@@ -28,6 +28,7 @@ require 'issue_tracker/models/issue'
 require 'issue_tracker/models/project'
 require 'issue_tracker/models/state'
 require 'issue_tracker/models/type'
+require 'issue_tracker/models/sprint'
 
 
 class IssueTracker < Controller
