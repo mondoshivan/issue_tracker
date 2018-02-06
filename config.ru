@@ -14,6 +14,9 @@ $:.unshift(lib) unless $:.include?(lib)
 
 require 'sinatra/base'
 require 'issue_tracker'
+require 'issue_tracker/databases/datamapper'
+
+DB = DB_DataMapper.new
 
 map('/') { run IssueTracker }
 map('/backlog') { run BacklogController }

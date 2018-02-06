@@ -11,3 +11,4 @@ class User
   property :admin, Boolean, required: true, default: false
 
 end
+
