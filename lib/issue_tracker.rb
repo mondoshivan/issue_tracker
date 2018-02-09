@@ -10,9 +10,6 @@ require 'slim'
 require 'sass'
 require 'coffee-script'
 
-# Databases
-require 'issue_tracker/databases/database'
-
 # Controllers
 require 'issue_tracker/controllers/controller'
 require 'issue_tracker/controllers/backlog_controller'

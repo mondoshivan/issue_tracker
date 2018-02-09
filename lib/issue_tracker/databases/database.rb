@@ -4,17 +4,15 @@ require 'issue_tracker/helpers/abstract'
 class Database
 
   extend Abstract
-  abstract_methods :connection, :migrate, :init_users, :init_projects, :init_types
+  abstract_methods :connection, :migrate, :dev_setup
 
   ################################
-  def initialize(options={})
+  def initialize(**options)
     @options = default.merge(options)
 
     connection
     migrate
-    init_users
-    init_projects
-    init_types
+    dev_setup
   end
 
   private

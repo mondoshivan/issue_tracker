@@ -18,6 +18,8 @@ class DB_DataMapper < Database
   ################################
   def initialize(options={})
     super(options)
+
+    DataMapper::Model.raise_on_save_failure = true
   end
 
   ################################
@@ -37,32 +39,42 @@ class DB_DataMapper < Database
   end
 
   ################################
-  def init_users
-    unless @options[:production]
-      if User.all.size == 0
-        User.create(first: 'Mark', second: 'Zuckerberg')
-        User.create(first: 'Edward', second: 'Snowden')
-        User.create(first: 'Steve', second: 'Jobs')
-        User.create(first: 'Bill', second: 'Gates')
-      end
-    end
-  end
-
-  ################################
-  def init_projects
-    unless @options[:production]
-      if Project.all.size == 0
-        Project.create(acronym: 'WEB', name: 'Web Development')
-        Project.create(acronym: 'DB', name: 'Databases')
-      end
-    end
-  end
-
-  ################################
-  def init_types
+  def dev_setup
     if Type.all.size == 0
-      Type.create(name: 'Bug')
-      Type.create(name: 'Task')
+      create_type('Bug')
+      create_type('Task')
+    end
+
+    unless @options[:production]
+
+      if User.all.size == 0
+        create_user('Mark', 'Zuckerberg')
+        create_user('Edward', 'Snowden')
+        create_user('Steve', 'Jobs')
+        create_user('Bill', 'Gates')
+
+        users = User.all
+        puts users.inspect
+      end
+
+      if Project.all.size == 0
+        create_project('WEB', 'Web Development')
+        create_project('DB', 'Databases')
+      end
+
+      if Issue.all.size == 0
+        issue = create_issue(
+            name: 'Some Name',
+            type: type(name: 'Bug'),
+            description: 'Some description',
+            project: project(acronym: 'WEB'),
+            user_assigned: user(first: 'Bill', second: 'Gates'),
+            user_created: user(first: 'Mark', second: 'Zuckerberg')
+        )
+
+        user = user(first: 'Bill', second: 'Gates')
+        puts issue.inspect
+      end
     end
   end
 
@@ -71,6 +83,61 @@ class DB_DataMapper < Database
   ################################
   def users(fields={})
     User.all(fields)
+  end
+
+  ################################
+  def user(fields={})
+    User.first(fields)
+  end
+
+  ################################
+  def types(fields={})
+    Type.all(fields)
+  end
+
+  ################################
+  def type(fields={})
+    Type.first(fields)
+  end
+
+  ################################
+  def projects(**fields)
+    Project.all(fields)
+  end
+
+  ################################
+  def project(**fields)
+    Project.first(fields)
+  end
+
+  ################################
+  def create_user(first, second, admin=false)
+    User.create(first: first, second: second, admin: admin)
+  end
+
+  ################################
+  def create_project(acronym, name)
+    Project.create(acronym: acronym, name: name)
+  end
+
+  ################################
+  def create_type(name)
+    Type.create(name: name)
+  end
+
+  ################################
+  def create_issue(**options)
+    issue = Issue.create(
+        name: options[:name],
+        description: options[:description],
+        type: options[:type],
+        project: options[:project],
+        state: options[:state],
+        sprint: options[:sprint]
+    )
+    issue.user_assigned = options[:user_assigned]
+    issue.user_created = options[:user_created]
+    issue
   end
 
 end
