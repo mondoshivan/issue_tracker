@@ -13,6 +13,7 @@ group :production, :development do
     gem 'sass'
     gem 'therubyracer'
     gem 'coffee-script'
+    gem 'mysql'
 end
 
 group :development do

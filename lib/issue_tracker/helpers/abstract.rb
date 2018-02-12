@@ -6,7 +6,7 @@ module Abstract
         def #{name}(*args)
           raise NotImplementedError.new("You must implement #{name}.")
         end
-      END
+END
       # important that this END is capitalized, since it marks the end of <<-END
     end
   end

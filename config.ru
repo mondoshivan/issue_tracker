@@ -16,7 +16,7 @@ require 'sinatra/base'
 require 'issue_tracker'
 require 'issue_tracker/databases/mysql'
 
-DATA = DB_Mysql.new
+DB_Mysql.new
 
 map('/') { run IssueTracker }
 map('/backlog') { run BacklogController }
