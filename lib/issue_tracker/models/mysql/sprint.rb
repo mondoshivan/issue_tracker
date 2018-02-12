@@ -2,20 +2,9 @@
 
 class Sprint < Model
 
-  attr_reader :id
-  attr_reader :start
-  attr_reader :end
-
-  ###############################
-  def self.create_table
-    DB_Mysql.con.query(<<eos)
-    CREATE TABLE IF NOT EXISTS sprint (
-    id INTEGER(6) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    start DATE NOT NULL,
-    end DATE NOT NULL
-    )
-eos
-  end
+  property :id, Integer, unsigned: true, primary_key: true, auto_increment: true
+  property :start, Date, required: true
+  property :end, Date, required: true
 
   ################################
   def self.create(**options)

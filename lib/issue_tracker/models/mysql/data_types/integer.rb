@@ -1,9 +1,9 @@
 
 
-class Boolean
+class Integer
 
   def self.to_s
-    'BOOLEAN'
+    'INTEGER'
   end
 
 end

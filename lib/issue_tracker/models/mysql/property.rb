@@ -1,5 +1,7 @@
-require 'issue_tracker/models/mysql/data_types/serial'
+require 'issue_tracker/models/mysql/data_types/integer'
 require 'issue_tracker/models/mysql/data_types/boolean'
+require 'issue_tracker/models/mysql/data_types/varchar'
+require 'issue_tracker/models/mysql/data_types/text'
 
 module Property
 
@@ -11,7 +13,7 @@ module Property
     properties << {
         name: args[0],
         type: args[1],
-        options: args[2]
+        options: args[2] ||= {}
     }
   end
 end

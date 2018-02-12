@@ -2,35 +2,16 @@ require 'issue_tracker/models/mysql/model'
 
 class Issue < Model
 
-  attr_reader :project_id
-  attr_reader :name
-  attr_reader :description
-  attr_reader :parent
-  attr_reader :type
-  attr_reader :project
-  attr_reader :state
-  attr_reader :sprint
-  attr_reader :user_assigned
-  attr_reader :user_created
-
-  ###############################
-  def self.create_table
-    DB_Mysql.con.query(<<eos)
-    CREATE TABLE IF NOT EXISTS issue (
-        project_id INTEGER(6) UNSIGNED NOT NULL,
-        name VARCHAR(25) NOT NULL,
-        description TEXT,
-        parent INTEGER(6) UNSIGNED,
-        type INTEGER(3) UNSIGNED NOT NULL,
-        project INTEGER(3) UNSIGNED NOT NULL,
-        state INTEGER(3) UNSIGNED NOT NULL,
-        sprint INTEGER(6) UNSIGNED,
-        user_assigned INTEGER(6) UNSIGNED NOT NULL,
-        user_created INTEGER(6) UNSIGNED NOT NULL,
-        PRIMARY KEY(project, project_id)
-    )
-eos
-  end
+  property :project_id, Integer, max: 6, unsigned: true, required: true, key: true
+  property :name, Varchar, max: 25, required: true
+  property :description, Text
+  property :parent, Integer, max: 6, unsigned: true
+  property :type, Integer, max: 3, unsigned: true, required: true
+  property :project, Integer, max: 3, unsigned: true, required: true, key: true
+  property :state, Integer, max: 3, unsigned: true, required: true
+  property :sprint, Integer, max: 6, unsigned: true
+  property :user_assigned, Integer, max: 6, unsigned: true, required: true
+  property :user_created, Integer, max: 6, unsigned: true, required: true
 
   ################################
   def self.create(**options)

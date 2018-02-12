@@ -24,25 +24,22 @@ eos
     columns = properties.map {|p|
       commands = []
       p[:options].each do |k,v|
-        commands << 'NOT NULL'      if k == :required && v
-        commands << 'UNIQUE'        if k == :unique && v
-        commands << "DEFAULT #{v}"  if k == :default && p[:type] == Boolean
+        commands << 'NOT NULL'        if k == :required && v
+        commands << 'UNIQUE'          if k == :unique && v
+        commands << 'UNSIGNED'        if k == :unsigned && v
+        commands << 'PRIMARY KEY'     if k == :primary_key && v
+        commands << 'AUTO_INCREMENT'  if k == :auto_increment && v
+        commands << "DEFAULT #{v}"    if k == :default && (p[:type] == Boolean || p[:type] == Integer)
         commands << "DEFAULT '#{v}'"  if k == :default && p[:type] == String
       end
+      max = "(#{p[:options][:max]})" if p[:options][:max]
+      "#{p[:name]} #{p[:type].to_s}#{max} #{commands.join(' ')}"
+    }.join(', ')
 
-      "#{p[:name]} #{p[:type].to_s} #{commands.join(' ')}"
-    }.join(',')
-
-    puts "CREATE TABLE IF NOT EXISTS #{self.name.downcase} (#{columns})"
-    exit 0
-    DB_Mysql.con.query("CREATE TABLE IF NOT EXISTS #{self.name.downcase} (#{columns})")
-
-#         id INTEGER(6) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-#         first VARCHAR(25) NOT NULL,
-#         second VARCHAR(25) NOT NULL,
-#         acronym VARCHAR(25) NOT NULL UNIQUE,
-#         admin Boolean NOT NULL DEFAULT false
-#     )
-# eos
+    keys = []
+    properties.each {|p| keys << p[:name] if p[:options][:key]}
+    keys = keys.empty? ? '' : ", PRIMARY KEY(#{keys.join(',')})"
+    puts "CREATE TABLE IF NOT EXISTS #{self.name.downcase} (#{columns}#{keys})"
+    DB_Mysql.con.query("CREATE TABLE IF NOT EXISTS #{self.name.downcase} (#{columns}#{keys})")
   end
 end
