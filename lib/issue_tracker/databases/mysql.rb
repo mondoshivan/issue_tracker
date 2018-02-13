@@ -4,6 +4,10 @@ require 'issue_tracker/databases/database'
 require 'issue_tracker/models/mysql/user'
 require 'issue_tracker/models/mysql/issue'
 require 'issue_tracker/models/mysql/sprint'
+require 'issue_tracker/models/mysql/project'
+require 'issue_tracker/models/mysql/state'
+require 'issue_tracker/models/mysql/type'
+require 'issue_tracker/models/mysql/project_member'
 
 # Mysql Ruby Tutorial:
 # http://zetcode.com/db/mysqlrubytutorial/
@@ -42,37 +46,6 @@ class DB_Mysql < Database
 
   ################################
   def dev_setup
-
-
-#     @con.query(<<eos)
-#     CREATE TABLE IF NOT EXISTS project (
-#         id INTEGER(#{@options[:max_size_id]}) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-#         name VARCHAR(25) NOT NULL,
-#         acronym VARCHAR(5) NOT NULL
-#     )
-# eos
-
-#     @con.query(<<eos)
-#     CREATE TABLE IF NOT EXISTS state (
-#         id INTEGER(#{@options[:max_size_id]}) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-#         name VARCHAR(25) NOT NULL,
-#         acronym VARCHAR(5) NOT NULL
-#     )
-# eos
-#     @con.query(<<eos)
-#     CREATE TABLE IF NOT EXISTS type (
-#         id INTEGER(#{@options[:max_size_id]}) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-#         name VARCHAR(5) NOT NULL
-#     )
-# eos
-#     @con.query(<<eos)
-#     CREATE TABLE IF NOT EXISTS project_members (
-#         project INTEGER(#{@options[:max_size_id]}) UNSIGNED NOT NULL,
-#         user INTEGER(#{@options[:max_size_id]}) UNSIGNED NOT NULL,
-#         PRIMARY KEY(project, user)
-#     )
-# eos
-
     unless @options[:production]
       User.drop_table
       User.create_table
@@ -84,6 +57,27 @@ class DB_Mysql < Database
       Sprint.drop_table
       Sprint.create_table
       Sprint.create(start: Time.new, end: Time.new)
+
+      Project.drop_table
+      Project.create_table
+      Project.create(name: 'Web Design', acronym: 'WEB')
+      Project.create(name: 'Database', acronym: 'DB')
+
+      State.drop_table
+      State.create_table
+      State.create(name: 'Todo', acronym: 's-td')
+      State.create(name: 'In Progress', acronym: 's-ip')
+      State.create(name: 'Ready for Testing', acronym: 's-rt')
+      State.create(name: 'Done', acronym: 's-do')
+
+      Type.drop_table
+      Type.create_table
+      Type.create(name: 'bug')
+      Type.create(name: 'task')
+
+      ProjectMember.drop_table
+      ProjectMember.create_table
+      ProjectMember.create(project: 1, user: 1)
 
       Issue.drop_table
       Issue.create_table

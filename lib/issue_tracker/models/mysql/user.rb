@@ -2,7 +2,7 @@ require 'issue_tracker/models/mysql/model'
 
 class User < Model
 
-  property :id, Integer, max: 6, unsigned: true, primary_key: true, auto_increment: true
+  property :id, Integer, max: 3, unsigned: true, primary_key: true, auto_increment: true
   property :first, Varchar, max: 25, required: true
   property :second, Varchar, max: 25, required: true
   property :acronym, Varchar, max: 25, required: true, unique: true
