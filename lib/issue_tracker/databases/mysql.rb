@@ -76,28 +76,26 @@ class DB_Mysql < Database
     unless @options[:production]
       User.drop_table
       User.create_table
-      User.create( fields: {first: 'Mark', second: 'Zuckerberg', acronym: 'mzuckerberg'})
-      User.create( fields: {first: 'Edward', second: 'Snowden', acronym: 'esnowden'})
-      User.create( fields: {first: 'Steve', second: 'Jobs', acronym: 'sjobs'})
-      User.create( fields: {first: 'Bill', second: 'Gates', acronym: 'bgates'})
+      User.create(first: 'Mark', second: 'Zuckerberg', acronym: 'mzuckerberg')
+      User.create(first: 'Edward', second: 'Snowden', acronym: 'esnowden')
+      User.create(first: 'Steve', second: 'Jobs', acronym: 'sjobs')
+      User.create(first: 'Bill', second: 'Gates', acronym: 'bgates', admin: true)
 
       Sprint.drop_table
       Sprint.create_table
-      Sprint.create(fields: {start: Time.new, end: Time.new})
+      Sprint.create(start: Time.new, end: Time.new)
 
       Issue.drop_table
       Issue.create_table
       Issue.create(
-          fields: {
-              project_id: 1,
-              name: 'Some Issue',
-              parent: 1,
-              project: 1,
-              type: 1,
-              state: 1,
-              user_assigned: 'sjobs',
-              user_created: 'sjobs'
-          }
+          project_id: 1,
+          name: 'Some Issue',
+          parent: 1,
+          project: 1,
+          type: 1,
+          state: 1,
+          user_assigned: 'sjobs',
+          user_created: 'sjobs'
       )
     end
   end
