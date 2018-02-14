@@ -21,6 +21,13 @@ class Factory {
         }
         return names;
     }
+
+    getSprintById(id) {
+        id = typeof id === "string" ? parseInt(id) : id;
+        for (let i=0; i<this.sprints.length; i++) {
+            if (this.sprints[i].id === id) { return this.sprints[i]; }
+        }
+    }
     
     parseIssues(issues) {
         for (let i=0; i<issues.length; i++) {
@@ -65,8 +72,17 @@ class Factory {
     }
 
     getTypeIdByName(name) {
+        name = name === null ? name : name.toLowerCase();
         for (let i=0; i<this.types.length; i++) {
-            if (this.types[i].name === name.toLowerCase()) { return this.types[i].id }
+            if (this.types[i].name === name) { return this.types[i].id }
+        }
+        return null;
+    }
+
+    getTypeNameById(id) {
+        id = typeof id === "string" ? parseInt(id) : id;
+        for (let i=0; i<this.types.length; i++) {
+            if (this.types[i].id === id) { return this.types[i].name }
         }
         return null;
     }
@@ -78,9 +94,9 @@ class Factory {
         return issue;
     }
 
-    getProjectName(id) {
+    getProjectAcronym(id) {
         for (let i=0; i<this.projects.length; i++) {
-            if (this.projects[i].id === id) { return this.projects[i].name }
+            if (this.projects[i].id === id) { return this.projects[i].acronym }
         }
         return null;
     }
@@ -92,10 +108,10 @@ class Factory {
         return null;
     }
     
-    getProjectNames() {
+    getProjectAcronyms() {
         let projects = [];
         for (let i=0; i<this.projects.length; i++) {
-            projects.push(this.projects[i].name);
+            projects.push(this.projects[i].acronym);
         }
         return projects;
     }
@@ -184,7 +200,7 @@ class Factory {
         
         let searchIssues = [];
         for (let i=0; i<issues.length; i++) {
-            if (this.getProjectName(issues[i].project).toLowerCase().includes(search)) {
+            if (this.getProjectAcronym(issues[i].project).toLowerCase().includes(search)) {
                 searchIssues.push(issues[i]);
             } else if (issues[i].id.toString().includes(search)) {
                 searchIssues.push(issues[i]);

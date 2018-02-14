@@ -246,6 +246,7 @@ class PageController {
                             controller.factory.sprints = data;
                             getData('/issue/all', function(data){
                                 controller.factory.setIssues(data);
+                                controller.refresh();
                             });
                         });
                     });
@@ -258,8 +259,6 @@ class PageController {
     }
     
     refresh(selected) {
-        console.log("==> refreshing");
-        console.log(this.factory.issues);
         this.createQuickFilter(document.getElementById("quick-filter"));
         this.createQuickFilterEventHandlers();
         this.setWindowSize();

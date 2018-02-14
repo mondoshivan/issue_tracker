@@ -102,7 +102,7 @@ class Utils {
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
     
-    static getProjectNameAndId(project, id) {
+    static getProjectAndIssueId(project, id) {
         return project + "-" + id;
     }
 

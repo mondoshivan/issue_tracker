@@ -107,8 +107,8 @@ class IssueController extends PageController {
         this.removeColumnLeft();
         this.removeColumnRight();
 
-        let projectName = this.factory.getProjectName(this.issue.project);
-        let projectNameAndId = Utils.getProjectNameAndId(projectName, this.issue.id);
+        let projectName = this.factory.getProjectAcronym(this.issue.project);
+        let projectNameAndId = Utils.getProjectAndIssueId(projectName, this.issue.id);
         
         // id     
         let issueId = document.getElementById('issue-id');
@@ -182,7 +182,7 @@ class IssueController extends PageController {
                 // user image
                 let userImage = document.createElement("div");
                 userImage.setAttribute("class", "avatar");
-                userImage.style.backgroundImage = "url('/ea3/img/users/"+message.userId+".jpg')";
+                userImage.style.backgroundImage = "url('img/users/"+message.userId+".jpg')";
                 comment.appendChild(userImage);
 
                 // message

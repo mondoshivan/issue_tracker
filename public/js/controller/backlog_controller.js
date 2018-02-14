@@ -46,8 +46,8 @@ class BacklogController extends PageController {
         backlogDiv.appendChild(h3);
     
         for (let i=0; i<issues.length; i++) {
-            let projectName = this.factory.getProjectName(issues[i].project);
-            let projectNameAndId = Utils.getProjectNameAndId(projectName, issues[i].id);
+            let projectName = this.factory.getProjectAcronym(issues[i].project);
+            let projectNameAndId = Utils.getProjectAndIssueId(projectName, issues[i].id);
 
             // issue
             let issue = document.createElement("div");
@@ -60,7 +60,7 @@ class BacklogController extends PageController {
 
             // type identifier
             let typeIdentifier = document.createElement("div");
-            typeIdentifier.setAttribute("class", "type-id " + issues[i].type);
+            typeIdentifier.setAttribute("class", "type-id " + this.factory.getTypeNameById(issues[i].type));
             issue.appendChild(typeIdentifier);
 
             // project id
@@ -74,7 +74,7 @@ class BacklogController extends PageController {
             // assigned user image
             let userImage = document.createElement("div");
             userImage.setAttribute("class", "avatar");
-            userImage.style.backgroundImage = "url('/ea3/img/users/"+issues[i].userAssigned+".jpg')";
+            userImage.style.backgroundImage = "url('img/users/"+issues[i].userAssigned+".jpg')";
             issue.appendChild(userImage);
 
             // issue name
@@ -182,13 +182,13 @@ class BacklogController extends PageController {
 
             projectElement = document.createElement("div");
             projectElement.setAttribute("class", "backlog-project");
-            projectElement.setAttribute("id", projects[i].name);
+            projectElement.setAttribute("id", projects[i].acronym);
             projectElement.setAttribute("onclick", "controller.projectSelected(this, '"+projects[i].id+"')");
             projectElement.setAttribute("ondrop", "controller.dropHandlerProject(event, this);");
             projectElement.setAttribute("ondragover", "controller.dragOverHandler(event);");
 
             projectName = document.createElement("h2");
-            projectName.appendChild(document.createTextNode(projects[i].name));
+            projectName.appendChild(document.createTextNode(projects[i].acronym));
             projectElement.appendChild(projectName);
 
             projectElement.appendChild(
@@ -214,50 +214,53 @@ class BacklogController extends PageController {
 
         if (issue === undefined) { return; }
            
-        let issueDetails = document.getElementById('issue-details');
-        Utils.removeAllChilds(document.getElementById('issue-details'));
+        let columnRight = document.getElementById('column-right');
+        Utils.removeAllChilds(columnRight);
         
         // id
         let id = document.createElement("a");
         id.setAttribute("href", "issue.html?project="+issue.project+"&id="+issue.id);
         id.setAttribute("class", "issue-id");
-        let projectName = this.factory.getProjectName(issue.project);
-        let projectNameAndId = Utils.getProjectNameAndId(projectName, issue.id);
+        let projectName = this.factory.getProjectAcronym(issue.project);
+        let projectNameAndId = Utils.getProjectAndIssueId(projectName, issue.id);
         let textNodeId = document.createTextNode(projectNameAndId);
         id.appendChild(textNodeId);
-        issueDetails.appendChild(id);
+        columnRight.appendChild(id);
     
         // name
         let issueName = document.createElement("div");
         issueName.setAttribute("class", "issue-name");
         let textNodeName = document.createTextNode(issue.name);
         issueName.appendChild(textNodeName);
-        issueDetails.appendChild(issueName);
+        columnRight.appendChild(issueName);
 
         // details
-        issueDetails.appendChild(this.rightColumnSeparation("Details"));
-        issueDetails.appendChild(
+        columnRight.appendChild(this.rightColumnSeparation("Details"));
+        columnRight.appendChild(
             Utils.createFloatingKeyValuePair(
                 "Status:",
                 this.factory.getStateName(issue.state)
             )
         );
-        issueDetails.appendChild(
+
+        console.log('==> issue');
+        console.log(issue);
+        columnRight.appendChild(
             Utils.createFloatingKeyValuePair(
                 "Sprint:",
-                Utils.capitalize(issue.sprint.name)
+                Utils.capitalize(this.factory.getSprintById(issue.sprint).name)
             )
         );
 
         // people
-        issueDetails.appendChild(this.rightColumnSeparation("People"));
-        issueDetails.appendChild(
+        columnRight.appendChild(this.rightColumnSeparation("People"));
+        columnRight.appendChild(
             Utils.createFloatingKeyValuePair(
                 "Assignee:",
                 this.factory.getUserName(issue.userAssigned)
             )
         );
-        issueDetails.appendChild(
+        columnRight.appendChild(
             Utils.createFloatingKeyValuePair(
                 "Created:",
                 this.factory.getUserName(issue.userCreated)
@@ -265,15 +268,15 @@ class BacklogController extends PageController {
         );
 
         // description
-        issueDetails.appendChild(this.rightColumnSeparation("Description"));
+        columnRight.appendChild(this.rightColumnSeparation("Description"));
         let issueDescription = document.createElement("div");
         issueDescription.setAttribute("class", "issue-description");
         textNodeName = document.createTextNode(issue.description);
         issueDescription.appendChild(textNodeName);
-        issueDetails.appendChild(issueDescription);
+        columnRight.appendChild(issueDescription);
 
         // comments
-        issueDetails.appendChild(this.rightColumnSeparation("Comments"));
+        columnRight.appendChild(this.rightColumnSeparation("Comments"));
         getComment(projectNameAndId, function(data) {
             let comments = data.getElementsByTagName("comment");
             for (let i=0; i<comments.length; i++) {
@@ -298,7 +301,7 @@ class BacklogController extends PageController {
                 // user image
                 let userImage = document.createElement("div");
                 userImage.setAttribute("class", "avatar");
-                userImage.style.backgroundImage = "url('/ea3/img/users/"+message.userId+".jpg')";
+                userImage.style.backgroundImage = "url('img/users/"+message.userId+".jpg')";
                 comment.appendChild(userImage);
 
                 // message
@@ -308,7 +311,7 @@ class BacklogController extends PageController {
                 comment.appendChild(messageElement);
 
                 // assign to parent
-                issueDetails.appendChild(comment);
+                columnRight.appendChild(comment);
             }
         });
     }

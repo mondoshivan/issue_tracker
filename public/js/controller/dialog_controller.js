@@ -54,13 +54,13 @@ class DialogController {
             controller.refresh(null);
         });
 
-        this.projectSelected    = this.parentController.factory.getProjectNames()[0];
+        this.projectSelected    = this.parentController.factory.getProjectAcronyms()[0];
         this.typeSelected       = this.parentController.factory.types[0];
     }
     
     show() {
         Utils.dropDownPrepare('type', this.parentController.factory.types, this.typeSelected);
-        Utils.dropDownPrepare('project', this.parentController.factory.getProjectNames(), this.projectSelected);
+        Utils.dropDownPrepare('project', this.parentController.factory.getProjectAcronyms(), this.projectSelected);
 
         let overlay = document.getElementById("overlay");
         overlay.style.display = "block";

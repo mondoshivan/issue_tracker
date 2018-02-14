@@ -88,6 +88,7 @@ class DB_Mysql < Database
           project: 1,
           type: 1,
           state: 1,
+          sprint: 1,
           user_assigned: 'sjobs',
           user_created: 'sjobs'
       )

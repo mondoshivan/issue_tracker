@@ -42,11 +42,11 @@ class BoardController extends PageController {
         let issuesDiv = document.getElementById('issues');
 
         for (let i=0; i<issues.length; i++) {
-            let projectName = this.factory.getProjectName(issues[i].project);
-            let projectNameAndId = Utils.getProjectNameAndId(projectName, issues[i].id);
+            let projectName = this.factory.getProjectAcronym(issues[i].project);
+            let projectNameAndId = Utils.getProjectAndIssueId(projectName, issues[i].id);
 
             let issueLifeCycle = document.createElement("div");
-            let parentProjectNameAndId = Utils.getProjectNameAndId(projectName, issues[i].parent);
+            let parentProjectNameAndId = Utils.getProjectAndIssueId(projectName, issues[i].parent);
             issueLifeCycle.setAttribute("class", "issue-life-cycle "+parentProjectNameAndId);
 
             let issueLifeCyclePeriods = 4;
@@ -81,7 +81,7 @@ class BoardController extends PageController {
                     // assigned user image
                     let userImage = document.createElement("div");
                     userImage.setAttribute("class", "avatar");
-                    userImage.style.backgroundImage = "url('/ea3/img/users/"+issues[i].userAssigned+".jpg')";
+                    userImage.style.backgroundImage = "url('img/users/"+issues[i].userAssigned+".jpg')";
                     issue.appendChild(userImage);
 
                     // issue name
@@ -200,8 +200,8 @@ class BoardController extends PageController {
         let id = document.createElement("a");
         id.setAttribute("href", "issue.html?project="+issue.project+"&id="+issue.id);
         id.setAttribute("class", "issue-id");
-        let projectName = this.factory.getProjectName(issue.project);
-        let projectNameAndId = Utils.getProjectNameAndId(projectName, issue.id);
+        let projectName = this.factory.getProjectAcronym(issue.project);
+        let projectNameAndId = Utils.getProjectAndIssueId(projectName, issue.id);
         let textNodeId = document.createTextNode(projectNameAndId);
         id.appendChild(textNodeId);
         issueDetails.appendChild(id);
@@ -277,7 +277,7 @@ class BoardController extends PageController {
                 // user image
                 let userImage = document.createElement("div");
                 userImage.setAttribute("class", "avatar");
-                userImage.style.backgroundImage = "url('/ea3/img/users/"+message.userId+".jpg')";
+                userImage.style.backgroundImage = "url('img/users/"+message.userId+".jpg')";
                 comment.appendChild(userImage);
 
                 // message
