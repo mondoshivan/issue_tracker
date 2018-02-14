@@ -6,7 +6,7 @@ class PageController {
         this.session = new Session();
         this.factory = new Factory();
 
-        this.dialogController = new DialogController(this);
+        this.dialogController = null;
         this.quickFilter = new QuickFilter([
             new Filter(
                 "Mark",
@@ -246,6 +246,7 @@ class PageController {
                             controller.factory.sprints = data;
                             getData('/issue/all', function(data){
                                 controller.factory.setIssues(data);
+                                controller.dialogController = new DialogController(controller);
                                 controller.refresh(null);
                             });
                         });

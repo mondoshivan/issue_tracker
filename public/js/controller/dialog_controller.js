@@ -59,8 +59,16 @@ class DialogController {
     }
     
     show() {
-        Utils.dropDownPrepare('type', this.parentController.factory.types, this.typeSelected);
-        Utils.dropDownPrepare('project', this.parentController.factory.getProjectAcronyms(), this.projectSelected);
+        Utils.dropDownPrepare(
+            'type',
+            this.parentController.factory.getTypeNames(),
+            this.parentController.factory.getTypeNameById(this.typeSelected.id)
+        );
+        Utils.dropDownPrepare(
+            'project',
+            this.parentController.factory.getProjectAcronyms(),
+            this.projectSelected
+        );
 
         let overlay = document.getElementById("overlay");
         overlay.style.display = "block";

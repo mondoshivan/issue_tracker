@@ -12,14 +12,14 @@ class Utils {
         Utils.removeAllChilds(element);
         for (let i=0; i<values.length; i++) {
             let node = document.createElement("p");
-            let textNode = document.createTextNode(values[i]);
+            let textNode = document.createTextNode(Utils.capitalize(values[i]));
             node.appendChild(textNode);
             element.appendChild(node);
         }
     }
 
     static addDropDownSelection(element, value) {
-        element.innerHTML = value;
+        element.innerHTML = Utils.capitalize(value);
     }
 
     static getDropDownSelection(parent) {

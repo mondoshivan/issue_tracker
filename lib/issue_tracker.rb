@@ -54,6 +54,10 @@ class IssueTracker < Controller
     slim :index
   end
 
+  get '/login' do
+    slim :login
+  end
+
   not_found do
     slim :not_found, :layout => :no_layout
   end

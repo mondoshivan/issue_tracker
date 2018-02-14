@@ -14,7 +14,7 @@ class Issue < Model
   property :user_created, Integer, max: 6, unsigned: true, required: true
 
   ################################
-  def self.create(**fields)
+  def self.create(fields)
     fields[:user_assigned] = User.first(acronym: fields[:user_assigned]).id
     fields[:user_created] = User.first(acronym: fields[:user_created]).id
     super(fields)

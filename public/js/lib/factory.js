@@ -86,6 +86,14 @@ class Factory {
         }
         return null;
     }
+
+    getTypeNames() {
+        let names = [];
+        for (let i=0; i<this.types.length; i++) {
+            names.push(this.types[i].name);
+        }
+        return names;
+    }
     
     newIssue(data) {
         data.id = data.id === undefined ? this.issues.length: data.id;

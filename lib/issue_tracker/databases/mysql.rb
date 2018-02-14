@@ -49,10 +49,10 @@ class DB_Mysql < Database
     unless @options[:production]
       User.drop_table
       User.create_table
-      User.create(first: 'Mark', second: 'Zuckerberg', acronym: 'mzuckerberg')
-      User.create(first: 'Edward', second: 'Snowden', acronym: 'esnowden')
-      User.create(first: 'Steve', second: 'Jobs', acronym: 'sjobs')
-      User.create(first: 'Bill', second: 'Gates', acronym: 'bgates', admin: true)
+      User.create(first: 'Mark', second: 'Zuckerberg', acronym: 'mzuckerberg', password: 'abcd')
+      User.create(first: 'Edward', second: 'Snowden', acronym: 'esnowden', password: 'abcd')
+      User.create(first: 'Steve', second: 'Jobs', acronym: 'sjobs', password: 'abcd')
+      User.create(first: 'Bill', second: 'Gates', acronym: 'bgates', password: 'abcd', admin: true)
 
       Sprint.drop_table
       Sprint.create_table

@@ -9,17 +9,16 @@ class IssueController < Controller
   end
 
   post '/' do
-    # puts params
-    # puts request.inspect
-    # @issue = Issue.create
-    # puts @issue
-    # puts Issue.all.inspect
-    # # redirect to("?project=#{@issue.project}&id=#{@issue.project_id}")
-    # redirect to('../backlog')
+    puts params
+    puts request.inspect
+    @issue = Issue.create(params)
+    puts @issue
+    # redirect to("?project=#{@issue.project}&id=#{@issue.project_id}")
+    redirect to('../backlog')
   end
 
   get '/all' do
-    Issue.all().to_json
+    Issue.all.to_json
   end
 
 end

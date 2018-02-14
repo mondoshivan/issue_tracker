@@ -26,7 +26,7 @@ module Sinatra
       app.enable :sessions
 
       app.post '/login' do
-        @user = User.first(name: params[:username], password: params[:password])
+        @user = User.first(acronym: params[:username], password: params[:password])
         if @user
           session[:admin] = @user.admin
           session[:logged_in] = true
