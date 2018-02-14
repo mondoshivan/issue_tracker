@@ -242,9 +242,6 @@ class BacklogController extends PageController {
                 this.factory.getStateName(issue.state)
             )
         );
-
-        console.log('==> issue');
-        console.log(issue);
         columnRight.appendChild(
             Utils.createFloatingKeyValuePair(
                 "Sprint:",
@@ -318,8 +315,6 @@ class BacklogController extends PageController {
 
     start() {
         super.start();
-
-        this.refresh(null);
     }
     
     refresh(selected) {

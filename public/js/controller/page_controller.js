@@ -246,7 +246,7 @@ class PageController {
                             controller.factory.sprints = data;
                             getData('/issue/all', function(data){
                                 controller.factory.setIssues(data);
-                                controller.refresh();
+                                controller.refresh(null);
                             });
                         });
                     });
