@@ -56,7 +56,7 @@ class DB_Mysql < Database
 
       Sprint.drop_table
       Sprint.create_table
-      Sprint.create(start: Time.new, end: Time.new)
+      Sprint.create(name: 'Newest Sprint', start: Time.new, end: Time.new)
 
       Project.drop_table
       Project.create_table

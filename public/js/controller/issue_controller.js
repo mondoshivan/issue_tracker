@@ -133,8 +133,8 @@ class IssueController extends PageController {
         // position
         Utils.dropDownPrepare(
             'issue-position',
-            this.factory.positions,
-            Utils.capitalize(this.issue.position)
+            this.factory.getSprintNames(),
+            Utils.capitalize(this.issue.sprint.name)
         );
 
         // description

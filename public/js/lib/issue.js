@@ -8,11 +8,11 @@ class Issue {
         this.name = data.name;
         this.description = data.description;
         this.project = parseInt(data.project);
-        this.type = data.type.toLowerCase();
+        this.type = parseInt(data.type);
         this.userCreated = parseInt(data.userCreated);
         this.userAssigned = parseInt(data.userAssigned);
         this.state = parseInt(data.state);
-        this.position = data.position.toLowerCase();
+        this.sprint = parseInt(data.sprint);
     }
 }
 

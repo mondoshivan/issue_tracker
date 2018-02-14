@@ -14,7 +14,7 @@ class BoardController extends PageController {
                 "Position",
                 "",
                 function(issue) {
-                    return issue.position === 'sprint';
+                    return issue.sprint !== null;
                 },
                 true,
                 false
@@ -223,8 +223,8 @@ class BoardController extends PageController {
         );
         issueDetails.appendChild(
             Utils.createFloatingKeyValuePair(
-                "Position:",
-                Utils.capitalize(issue.position)
+                "Sprint:",
+                Utils.capitalize(issue.sprint.name)
             )
         );
 

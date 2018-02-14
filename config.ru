@@ -24,3 +24,6 @@ map('/board') { run BoardController }
 map('/issue') { run IssueController }
 map('/project') { run ProjectController }
 map('/user') { run UserController }
+map('/state') { run StateController }
+map('/type') { run TypeController }
+map('/sprint') { run SprintController }

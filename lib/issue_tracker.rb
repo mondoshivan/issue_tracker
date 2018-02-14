@@ -17,6 +17,9 @@ require 'issue_tracker/controllers/board_controller'
 require 'issue_tracker/controllers/issue_controller'
 require 'issue_tracker/controllers/project_controller'
 require 'issue_tracker/controllers/user_controller'
+require 'issue_tracker/controllers/state_controller'
+require 'issue_tracker/controllers/type_controller'
+require 'issue_tracker/controllers/sprint_controller'
 require 'issue_tracker/controllers/asset_handler'
 
 

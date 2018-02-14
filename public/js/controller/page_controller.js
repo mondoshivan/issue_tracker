@@ -238,6 +238,18 @@ class PageController {
             controller.factory.users = data;
             getData('/project/all', function(data){
                 controller.factory.projects = data;
+                getData('/state/all', function(data){
+                    controller.factory.states = data;
+                    getData('/type/all', function(data){
+                        controller.factory.types = data;
+                        getData('/sprint/all', function(data){
+                            controller.factory.sprints = data;
+                            getData('/issue/all', function(data){
+                                controller.factory.setIssues(data);
+                            });
+                        });
+                    });
+                });
             });
         });
 
@@ -246,6 +258,8 @@ class PageController {
     }
     
     refresh(selected) {
+        console.log("==> refreshing");
+        console.log(this.factory.issues);
         this.createQuickFilter(document.getElementById("quick-filter"));
         this.createQuickFilterEventHandlers();
         this.setWindowSize();

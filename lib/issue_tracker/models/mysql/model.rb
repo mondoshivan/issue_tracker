@@ -92,8 +92,8 @@ eos
   def to_json(a)
     hash = {}
     instance_variables.each do |name|
-      hash[name.to_s] = instance_variable_get(name)
+      hash[name.to_s.gsub(/^@/, '')] = instance_variable_get(name)
     end
-    hash.to_s
+    hash.to_json
   end
 end

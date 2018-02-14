@@ -4,15 +4,22 @@ class Factory {
     constructor() {
         this.issues = [];
         this.types = [];
-        this.positions = [];
+        this.sprints = [];
         this.users = [];
         this.states = [];
         this.projects = [];
     }
 
     setIssues(issues) {
-        this.issues = issues;
         this.parseIssues(issues);
+    }
+
+    getSprintNames() {
+        let names = [];
+        for (let i=0; i<this.sprints.length; i++) {
+            names.push(this.sprints[i].name);
+        }
+        return names;
     }
     
     parseIssues(issues) {
@@ -56,6 +63,13 @@ class Factory {
         }
         return null;
     }
+
+    getTypeIdByName(name) {
+        for (let i=0; i<this.types.length; i++) {
+            if (this.types[i].name === name.toLowerCase()) { return this.types[i].id }
+        }
+        return null;
+    }
     
     newIssue(data) {
         data.id = data.id === undefined ? this.issues.length: data.id;
@@ -86,13 +100,16 @@ class Factory {
         return projects;
     }
     
-    getIssuesOfProjectAndType(projectId, type) {
+    getIssuesOfProjectAndType(projectId, type_name) {
         projectId = projectId === null ? null : parseInt(projectId);
-        type = type === null ? null : type.toLowerCase();
+        type_name = type_name === null ? null : type_name.toLowerCase();
         let projectIssues = [];
         for (let i=0; i<this.issues.length; i++) {
             if (projectId === null || this.issues[i].project === projectId) {
-                if (type === null || type === 'all' || type === '' || this.issues[i].type === type) {
+                if (type_name === null ||
+                    type_name === 'all' ||
+                    type_name === '' ||
+                    this.issues[i].type === this.getTypeIdByName(type_name)) {
                     projectIssues.push(this.issues[i]);
                 } 
             }
@@ -147,13 +164,13 @@ class Factory {
         return null;
     }
     
-    issuesOfType(type) {
-        type = type.toLowerCase();
-        if (type === null || type === 'all') { return this.issues; }
+    issuesOfType(type_name) {
+        type_name = type_name.toLowerCase();
+        if (type_name === null || type_name === 'all') { return this.issues; }
         
         let typeIssues = [];
         for (let i=0; i<this.issues.length; i++) {
-            if (this.issues[i].type === type) {
+            if (this.issues[i].type === this.getTypeIdByName(type_name)) {
                 typeIssues.push(this.issues[i]);
             }
         }

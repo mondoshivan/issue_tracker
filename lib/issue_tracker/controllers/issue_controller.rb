@@ -18,4 +18,8 @@ class IssueController < Controller
     # redirect to('../backlog')
   end
 
+  get '/all' do
+    Issue.all().to_json
+  end
+
 end

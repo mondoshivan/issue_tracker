@@ -119,9 +119,9 @@ class BacklogController extends PageController {
         let issue = this.factory.getIssueByProjectId(data);
         let droppedElement = document.getElementById(data);
         if (dropElement.id === 'sprint') {
-            issue.position = 'sprint';
+            issue.sprint = 'sprint'; // ToDo: replace string with sprint object
         } else {
-            issue.position = 'backlog';
+            issue.sprint = null;
         }
         dropElement.appendChild(droppedElement);
         this.refresh(issue);
@@ -244,8 +244,8 @@ class BacklogController extends PageController {
         );
         issueDetails.appendChild(
             Utils.createFloatingKeyValuePair(
-                "Position:",
-                Utils.capitalize(issue.position)
+                "Sprint:",
+                Utils.capitalize(issue.sprint.name)
             )
         );
 
