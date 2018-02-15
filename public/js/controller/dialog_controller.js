@@ -48,7 +48,12 @@ class DialogController {
                 "position": "backlog"
             });
 
-            $("#new-issue").submit();
+            let input = $("<input>")
+                .attr("type", "hidden")
+                .attr("name", "project").val(controller.factory.getProjectId(project));
+            let form = $('#new-issue');
+            form.append($(input));
+            form.submit();
 
             controller.dialogController.hide();
             controller.refresh(null);

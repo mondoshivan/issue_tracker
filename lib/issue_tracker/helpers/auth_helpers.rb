@@ -12,11 +12,13 @@ module Sinatra
       end
 
       def protected!
-        halt 401,slim(:unauthorized) unless authorized?
+        flash[:notice] = "Authentication is required"
+        halt 401,slim(:login) unless authorized?
       end
 
       def logged_in!
-        halt 401,slim(:unauthorized) unless logged_in?
+        flash[:notice] = "Authentication is required"
+        halt 401,slim(:login) unless logged_in?
       end
     end
 
