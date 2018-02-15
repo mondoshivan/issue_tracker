@@ -2,9 +2,12 @@ require 'issue_tracker/controllers/controller'
 
 class SprintController < Controller
 
+  before do
+    logged_in!
+  end
+
   get '/all' do
-    @sprints = Sprint.all()
-    @sprints.to_json
+    Sprint.all.to_json
   end
 
 end

@@ -2,6 +2,10 @@ require 'issue_tracker/controllers/controller'
 
 class IssueController < Controller
 
+  before do
+    logged_in!
+  end
+
   get '/' do
     @page_title = 'Issue'
     @controller = 'IssueController'

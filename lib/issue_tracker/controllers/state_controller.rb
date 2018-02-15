@@ -2,9 +2,12 @@ require 'issue_tracker/controllers/controller'
 
 class StateController < Controller
 
+  before do
+    logged_in!
+  end
+
   get '/all' do
-    @states = State.all()
-    @states.to_json
+    State.all.to_json
   end
 
 end
