@@ -27,6 +27,7 @@ class Factory {
         for (let i=0; i<this.sprints.length; i++) {
             if (this.sprints[i].id === id) { return this.sprints[i]; }
         }
+        return null;
     }
     
     parseIssues(issues) {

@@ -1,15 +1,36 @@
-require 'issue_tracker/models/mysql/property'
+require 'issue_tracker/models/mysql/data_types/integer'
+require 'issue_tracker/models/mysql/data_types/boolean'
+require 'issue_tracker/models/mysql/data_types/varchar'
+require 'issue_tracker/models/mysql/data_types/text'
+
 
 class Model
 
-  extend Property
+  ################################
+  def self.property(*args)
+    self.properties << {
+        name: args[0],
+        type: args[1],
+        options: args[2] ||= {}
+    }
+  end
+
+  ################################
+  def self.properties
+    @properties ||= []
+  end
+
+  ################################
+  def self.property_with_name(name)
+    self.properties.each { |p| return p if p[:name] == name }
+  end
 
   ###############################
   def self.create(fields)
     query = "INSERT INTO #{self.name.downcase} (#{fields.keys.join(', ')}) " +
         "VALUES (#{fields.values.map.with_index { |v, i|
           property_name = fields.keys[i]
-          property = property_with_name(property_name)
+          property = self.property_with_name(property_name)
 
           if property[:type] == Boolean
             "#{v}"
@@ -32,7 +53,7 @@ eos
 
   ###############################
   def self.create_table
-    columns = properties.map {|p|
+    columns = self.properties.map {|p|
       commands = []
       commands << 'UNSIGNED'                            if p[:options][:unsigned]
       commands << 'NOT NULL'                            if p[:options][:required]
@@ -46,7 +67,7 @@ eos
       "#{p[:name]} #{p[:type].to_s}#{max} #{commands.join(' ')}"
     }.join(', ')
 
-    keys = properties.clone.delete_if { |p| !(p[:options][:key])}.map {|p| p[:name]}
+    keys = self.properties.clone.delete_if { |p| !(p[:options][:key])}.map {|p| p[:name]}
     keys = keys.empty? ? '' : ", PRIMARY KEY(#{keys.join(',')})"
     DB_Mysql.con.query("CREATE TABLE IF NOT EXISTS #{self.name.downcase} (#{columns}#{keys})")
   end
@@ -62,7 +83,7 @@ eos
     rs = DB_Mysql.con.query(sql)
 
     created = []
-    rs.num_rows.times { created << self.new(rs.fetch_row, properties) }
+    rs.num_rows.times { created << self.new(rs.fetch_row) }
     created
   end
 
@@ -76,15 +97,22 @@ eos
     self.all(fields)[-1]
   end
 
+  #################################
+  def self.create_getter(method_name, variable)
+    define_method method_name do
+      instance_variable_get(variable)
+    end
+  end
+
   ################################
-  def initialize(values, properties)
+  def initialize(values)
     values.each_with_index do |v,i|
-      name = properties[i][:name]
-      v = v.to_i == 1 if properties[i][:type] == Boolean
-      v = v.to_i      if properties[i][:type] == Integer
-      v = Time.new(v) if properties[i][:type] == Date
+      name = self.class.properties[i][:name]
+      v = v.to_i == 1 if self.class.properties[i][:type] == Boolean
+      v = v.to_i      if self.class.properties[i][:type] == Integer
+      v = Time.new(v) if self.class.properties[i][:type] == Date
       instance_variable_set("@#{name}", v)
-      define_singleton_method(name) { instance_variable_get("@#{name}") }
+      Model.create_getter(name, "@#{name}")
     end
   end
 
