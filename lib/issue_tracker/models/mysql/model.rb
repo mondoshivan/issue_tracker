@@ -1,3 +1,5 @@
+require 'digest'
+
 require 'issue_tracker/models/mysql/data_types/integer'
 require 'issue_tracker/models/mysql/data_types/boolean'
 require 'issue_tracker/models/mysql/data_types/varchar'
@@ -31,6 +33,7 @@ class Model
         "VALUES (#{fields.values.map.with_index { |v, i|
           property_name = fields.keys[i]
           property = self.property_with_name(property_name)
+          v = self.checksum(v, property[:options][:checksum]) if property[:options].key?(:checksum)
 
           if property[:type] == Boolean
             "#{v}"
@@ -73,9 +76,20 @@ eos
   end
 
   ################################
+  def self.checksum(string, checksum_type)
+    if checksum_type
+      return Digest::MD5.hexdigest(string) if checksum_type == 'md5'
+    else
+      raise "illegal checksum type: #{checksum_type}"
+    end
+  end
+
+  ################################
   def self.all(**fields)
     where = ''
     fields.each do |name, value|
+      property = self.property_with_name(name)
+      value = self.checksum(value, property[:options][:checksum]) if property[:options].key?(:checksum)
       where += "#{self.name.downcase}.#{name}='#{value}' AND "
     end
     where = "WHERE #{where[0..-5]}" unless where.empty?
