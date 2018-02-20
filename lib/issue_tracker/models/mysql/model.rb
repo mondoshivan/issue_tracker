@@ -66,7 +66,14 @@ eos
       commands << "DEFAULT #{p[:options][:default]}"    if p[:options][:default] != nil && (p[:type] == Boolean || p[:type] == Integer)
       commands << "DEFAULT '#{p[:options][:default]}'"  if p[:options][:default] != nil && p[:type] == String
 
-      max = p[:options][:max] ? "(#{p[:options][:max]})" : ''
+      if p[:options][:max]
+        max = "(#{p[:options][:max]})"
+      elsif p[:options][:checksum].downcase == 'md5'
+        max = '(32)'
+      else
+        max = ''
+      end
+
       "#{p[:name]} #{p[:type].to_s}#{max} #{commands.join(' ')}"
     }.join(', ')
 
