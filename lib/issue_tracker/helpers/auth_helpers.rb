@@ -12,13 +12,18 @@ module Sinatra
       end
 
       def protected!
-        flash[:notice] = "Authentication is required"
-        halt 401,slim(:login) unless authorized?
+        unless authorized?
+          flash[:notice] = "Authentication is required"
+          halt 401,slim(:login)
+        end
       end
 
       def logged_in!
-        flash[:notice] = "Authentication is required"
-        halt 401,slim(:login) unless logged_in?
+        unless logged_in?
+          flash[:notice] = "Authentication is required"
+          halt 401,slim(:login)
+        end
+
       end
     end
 
@@ -28,12 +33,12 @@ module Sinatra
       app.enable :sessions
 
       app.post '/login' do
-        @user = User.first(acronym: params[:username], password: params[:password])
-        if @user
-          session[:admin] = @user.admin
+        user = User.first(acronym: params[:username], password: params[:password])
+        if user
+          session[:admin] = user.admin
           session[:logged_in] = true
-          session[:user_id] = @user.id
-          flash[:notice] = "You are now logged in as #{@user.name}"
+          session[:user] = user
+          flash[:notice] = "You are now logged in as #{user.name}"
           redirect to('/')
         else
           flash[:notice] = 'The username or password you entered are incorrect'

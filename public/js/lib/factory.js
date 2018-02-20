@@ -110,9 +110,9 @@ class Factory {
         return null;
     }
 
-    getProjectId(name) {
+    getProjectId(acronym) {
         for (let i=0; i<this.projects.length; i++) {
-            if (this.projects[i].name === name) { return this.projects[i].id }
+            if (this.projects[i].acronym === acronym) { return this.projects[i].id }
         }
         return null;
     }

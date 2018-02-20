@@ -18,14 +18,16 @@ class DialogController {
         });
         
         $("#new-issue").find("button[type='button']").click(function() {
-            let project = Utils.getDropDownSelection(document.getElementById("project"));
-            let type = Utils.getDropDownSelection(document.getElementById("type"));
+            let project_acronym = Utils.getDropDownSelection(document.getElementById("project"));
+            let project_id = controller.factory.getProjectId(project_acronym);
+            let type_name = Utils.getDropDownSelection(document.getElementById("type"));
+            let type_id = controller.factory.getTypeIdByName(type_name);
             let issueName = document.getElementById("name");
             let description = document.getElementById("description");
     
             let errors = [];
-            if (project === "")              { errors.push(document.getElementById("project")) }
-            if (type === "")                 { errors.push(document.getElementById("type")) }
+            if (project_id === null)         { errors.push(document.getElementById("project")) }
+            if (type_id === null)            { errors.push(document.getElementById("type")) }
             if (issueName.value === "")      { errors.push(issueName) }
             if (description.value === "")    { errors.push(description) }
     
@@ -38,8 +40,8 @@ class DialogController {
     
             // insert new issue
             controller.factory.newIssue({
-                "project": controller.factory.getProjectId(project),
-                "type": type,
+                "project": project_id,
+                "type": type_id,
                 "name": issueName.value,
                 "description": description.value,
                 "state": controller.factory.getStateIdByAcronym("s-td"),
@@ -48,11 +50,9 @@ class DialogController {
                 "position": "backlog"
             });
 
-            let input = $("<input>")
-                .attr("type", "hidden")
-                .attr("name", "project").val(controller.factory.getProjectId(project));
             let form = $('#new-issue');
-            form.append($(input));
+            form.append($("<input>").attr("type", "hidden").attr("name", "project").val(project_id));
+            form.append($("<input>").attr("type", "hidden").attr("name", "type").val(type_id));
             form.submit();
 
             controller.dialogController.hide();

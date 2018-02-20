@@ -13,14 +13,9 @@ class IssueController < Controller
   end
 
   post '/' do
-    puts params
-    puts request.inspect
-    params[:user_assigned] = session[:user_id]
-    params[:user_created]  = session[:user_id]
-    @issue = Issue.create(params)
-    puts @issue
-    # redirect to("?project=#{@issue.project}&id=#{@issue.project_id}")
-    redirect to('../backlog')
+    params[:user_assigned] = session[:user].acronym
+    params[:user_created]  = session[:user].acronym
+    Issue.create(params)
   end
 
   get '/all' do
