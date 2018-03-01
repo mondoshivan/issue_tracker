@@ -188,6 +188,13 @@ class Factory {
         }
         return null;
     }
+
+    getUserAcronym(id) {
+        for (let i=0; i<this.users.length; i++) {
+            if (this.users[i].id === id) { return this.users[i].acronym }
+        }
+        return null;
+    }
     
     issuesOfType(type_name) {
         type_name = type_name.toLowerCase();

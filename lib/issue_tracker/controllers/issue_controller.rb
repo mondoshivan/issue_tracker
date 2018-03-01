@@ -13,9 +13,16 @@ class IssueController < Controller
   end
 
   post '/' do
-    params[:user_assigned] = session[:user].acronym
-    params[:user_created]  = session[:user].acronym
-    Issue.create(params)
+    Issue.create(
+        name: params['name'],
+        description: params['description'],
+        project: params['project'],
+        type: params['type'],
+        state: params['state'],
+        user_assigned: session[:user].acronym,
+        user_created: session[:user].acronym
+    )
+    redirect to("../#{params['redirect'].gsub(/^\//, '')}")
   end
 
   get '/all' do

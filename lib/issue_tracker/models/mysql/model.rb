@@ -24,7 +24,9 @@ class Model
 
   ################################
   def self.property_with_name(name)
-    self.properties.each { |p| return p if p[:name] == name }
+    self.properties.each do |p|
+      return p if p[:name] == name
+    end
   end
 
   ###############################
@@ -68,7 +70,7 @@ eos
 
       if p[:options][:max]
         max = "(#{p[:options][:max]})"
-      elsif p[:options][:checksum].downcase == 'md5'
+      elsif p[:options][:checksum] && p[:options][:checksum].downcase == 'md5'
         max = '(32)'
       else
         max = ''

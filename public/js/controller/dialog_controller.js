@@ -24,6 +24,8 @@ class DialogController {
             let type_id = controller.factory.getTypeIdByName(type_name);
             let issueName = document.getElementById("name");
             let description = document.getElementById("description");
+            let state_id = controller.factory.getStateIdByAcronym("s-td");
+            let redirect = window.location.pathname;
     
             let errors = [];
             if (project_id === null)         { errors.push(document.getElementById("project")) }
@@ -44,15 +46,15 @@ class DialogController {
                 "type": type_id,
                 "name": issueName.value,
                 "description": description.value,
-                "state": controller.factory.getStateIdByAcronym("s-td"),
-                "userCreated": controller.session.userId,
-                "userAssigned": controller.session.userId,
+                "state": state_id,
                 "position": "backlog"
             });
 
             let form = $('#new-issue');
             form.append($("<input>").attr("type", "hidden").attr("name", "project").val(project_id));
             form.append($("<input>").attr("type", "hidden").attr("name", "type").val(type_id));
+            form.append($("<input>").attr("type", "hidden").attr("name", "state").val(state_id));
+            form.append($("<input>").attr("type", "hidden").attr("name", "redirect").val(redirect));
             form.submit();
 
             controller.dialogController.hide();

@@ -3,7 +3,6 @@ let controller = null;
 class PageController {
     
     constructor() {
-        this.session = new Session();
         this.factory = new Factory();
 
         this.dialogController = null;

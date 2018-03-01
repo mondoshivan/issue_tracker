@@ -15,6 +15,7 @@ class Issue < Model
 
   ################################
   def self.create(fields)
+    fields[:project_id] = Issue.all(project: fields[:project]).count
     fields[:user_assigned] = User.first(acronym: fields[:user_assigned]).id
     fields[:user_created] = User.first(acronym: fields[:user_created]).id
     super(fields)

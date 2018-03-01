@@ -242,10 +242,15 @@ class BacklogController extends PageController {
                 this.factory.getStateName(issue.state)
             )
         );
+
+        let sprintName = '';
+        if (this.factory.getSprintById(issue.sprint) !== null) {
+            sprintName = this.factory.getSprintById(issue.sprint).name;
+        }
         columnRight.appendChild(
             Utils.createFloatingKeyValuePair(
                 "Sprint:",
-                Utils.capitalize(this.factory.getSprintById(issue.sprint).name)
+                Utils.capitalize(sprintName)
             )
         );
 
