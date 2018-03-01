@@ -50,7 +50,7 @@ class BoardController extends PageController {
             issueLifeCycle.setAttribute("class", "issue-life-cycle "+parentProjectNameAndId);
 
             let issueLifeCyclePeriods = 4;
-            for (let j=0; j<issueLifeCyclePeriods; j++) {
+            for (let j=1; j<=issueLifeCyclePeriods; j++) {
                 let issueLifeCycleEpisode = document.createElement("div");
                 let classes = "issue-life-cycle-episode " + this.factory.getStateAcronyme(j);
                 issueLifeCycleEpisode.setAttribute("class", classes);
@@ -221,10 +221,14 @@ class BoardController extends PageController {
                 this.factory.getStateName(issue.state)
             )
         );
+        let sprintName = '';
+        if (this.factory.getSprintById(issue.sprint) !== null) {
+            sprintName = this.factory.getSprintById(issue.sprint).name;
+        }
         columnRight.appendChild(
             Utils.createFloatingKeyValuePair(
                 "Sprint:",
-                Utils.capitalize(this.factory.getSprintById(issue.sprint).name)
+                Utils.capitalize(sprintName)
             )
         );
 
