@@ -13,7 +13,7 @@ header
       h1 = @page_title
       section class="inline-block header-removeable"
         div
-          input id="search" placeholder="Search"
+          input(id="search" autofocus placeholder="Search" onclick="this.setSelectionRange(0, this.value.length)" )
         .radio-selection
           div class="radio-button left selected" All
           div class="radio-button bug" Bug
