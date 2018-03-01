@@ -3,7 +3,7 @@
 class Issue {
     
     constructor(data) {
-        this.id = parseInt(data.id);
+        this.id = parseInt(data.project_id);
         this.parent = parseInt(data.parent);
         this.name = data.name;
         this.description = data.description === null ? '' : data.description;
