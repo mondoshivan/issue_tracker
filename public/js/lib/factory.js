@@ -222,7 +222,7 @@ class Factory {
                 searchIssues.push(issues[i]);
             } else if (issues[i].name.toLowerCase().includes(search)) {
                 searchIssues.push(issues[i]);
-            } else if (issues[i].type.includes(search)) {
+            } else if (this.getTypeNameById(issues[i].type).includes(search)) {
                 searchIssues.push(issues[i]);
             }
         }
