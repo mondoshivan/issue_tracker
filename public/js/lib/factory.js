@@ -8,6 +8,7 @@ class Factory {
         this.users = [];
         this.states = [];
         this.projects = [];
+        this.revision = null;
     }
 
     setIssues(issues) {
@@ -157,6 +158,14 @@ class Factory {
         let project = Utils.getProjectFromProjectId(projectId);
         let id = Utils.getIdFromProjectId(projectId);
         return this.getIssue(this.getProjectId(project), id);
+    }
+
+    updateIssueState(project, project_id, state) {
+
+    }
+
+    updateIssue(project, project_id, issue) {
+
     }
     
     getUser(id) {

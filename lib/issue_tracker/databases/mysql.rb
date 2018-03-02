@@ -75,9 +75,9 @@ class DB_Mysql < Database
       Type.create(name: 'bug')
       Type.create(name: 'task')
 
-      ProjectMember.drop_table
-      ProjectMember.create_table
-      ProjectMember.create(project: 1, user: 1)
+      # ProjectMember.drop_table
+      # ProjectMember.create_table
+      # ProjectMember.create(project: 1, user: 1)
 
       Issue.drop_table
       Issue.create_table

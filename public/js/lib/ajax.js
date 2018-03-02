@@ -15,8 +15,6 @@ function getData(resource, callback) {
         let isSuccess = xmlHttp.status === 200;
         if (isReady && isSuccess) {
             let data = JSON.parse(xmlHttp.responseText);
-            console.log("==> received");
-            console.log(data);
             callback(data);
         }
     };

@@ -41,13 +41,14 @@ class BoardController extends PageController {
     addIssueElements(issues) {
         let issuesDiv = document.getElementById('issues');
 
+        console.log("addIssueElements");
+
         for (let i=0; i<issues.length; i++) {
             let projectName = this.factory.getProjectAcronym(issues[i].project);
             let projectNameAndId = Utils.getProjectAndIssueId(projectName, issues[i].id);
 
             let issueLifeCycle = document.createElement("div");
-            let parentProjectNameAndId = Utils.getProjectAndIssueId(projectName, issues[i].parent);
-            issueLifeCycle.setAttribute("class", "issue-life-cycle "+parentProjectNameAndId);
+            issueLifeCycle.setAttribute("class", "issue-life-cycle "+projectNameAndId);
 
             let issueLifeCyclePeriods = 4;
             for (let j=1; j<=issueLifeCyclePeriods; j++) {

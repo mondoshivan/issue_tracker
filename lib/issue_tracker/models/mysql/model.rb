@@ -50,6 +50,11 @@ class Model
   end
 
   ###############################
+  def self.update()
+
+  end
+
+  ###############################
   def self.drop_table
     DB_Mysql.con.query(<<eos)
     DROP TABLE IF EXISTS #{self.name.downcase};
@@ -58,15 +63,20 @@ eos
 
   ###############################
   def self.create_table
+    default_key = true
     columns = self.properties.map {|p|
       commands = []
       commands << 'UNSIGNED'                            if p[:options][:unsigned]
       commands << 'NOT NULL'                            if p[:options][:required]
       commands << 'UNIQUE'                              if p[:options][:unique]
-      commands << 'PRIMARY KEY'                         if p[:options][:primary_key]
       commands << 'AUTO_INCREMENT'                      if p[:options][:auto_increment]
       commands << "DEFAULT #{p[:options][:default]}"    if p[:options][:default] != nil && (p[:type] == Boolean || p[:type] == Integer)
       commands << "DEFAULT '#{p[:options][:default]}'"  if p[:options][:default] != nil && p[:type] == String
+
+      if p[:options][:primary_key]
+        commands << 'PRIMARY KEY'
+        default_key = false
+      end
 
       if p[:options][:max]
         max = "(#{p[:options][:max]})"
@@ -80,7 +90,20 @@ eos
     }.join(', ')
 
     keys = self.properties.clone.delete_if { |p| !(p[:options][:key])}.map {|p| p[:name]}
+
+    # prepare the default key
+    if keys.empty? && default_key
+      columns = "id INTEGER UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT, #{columns}"
+      self.property(:id, Integer, unsigned: true, primary_key: true, auto_increment: true)
+    else
+      columns = "id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT, #{columns}"
+      self.property(:id, Integer, unsigned: true, auto_increment: true, key: true)
+      keys << 'id'
+    end
+
     keys = keys.empty? ? '' : ", PRIMARY KEY(#{keys.join(',')})"
+
+    puts "CREATE TABLE IF NOT EXISTS #{self.name.downcase} (#{columns}#{keys})"
     DB_Mysql.con.query("CREATE TABLE IF NOT EXISTS #{self.name.downcase} (#{columns}#{keys})")
   end
 
