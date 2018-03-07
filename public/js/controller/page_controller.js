@@ -65,10 +65,11 @@ class PageController {
     }
 
     getRevision() {
-        getData('/project/revision', function(data){
+        getData('/project/revision', function(data) {
             console.log("==> received revision");
             console.log(data);
             controller.factory.revision = data;
+        });
     }
 
     getWindowHeight() {
