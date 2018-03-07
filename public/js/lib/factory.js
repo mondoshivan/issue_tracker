@@ -98,7 +98,6 @@ class Factory {
     }
     
     newIssue(data) {
-        data.id = data.id === undefined ? this.issues.length: data.id;
         let issue = new Issue(data);
         this.issues.push(issue);
         return issue;

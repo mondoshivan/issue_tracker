@@ -199,10 +199,10 @@ class BoardController extends PageController {
 
         // id
         let id = document.createElement("a");
-        id.setAttribute("href", "issue.html?project="+issue.project+"&id="+issue.id);
+        id.setAttribute("href", "issue.html?project="+issue.project+"&id="+issue.project_id);
         id.setAttribute("class", "issue-id");
         let projectName = this.factory.getProjectAcronym(issue.project);
-        let projectNameAndId = Utils.getProjectAndIssueId(projectName, issue.id);
+        let projectNameAndId = Utils.getProjectAndIssueId(projectName, issue.project_id);
         let textNodeId = document.createTextNode(projectNameAndId);
         id.appendChild(textNodeId);
         columnRight.appendChild(id);

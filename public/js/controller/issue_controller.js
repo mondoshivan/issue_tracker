@@ -108,11 +108,11 @@ class IssueController extends PageController {
         this.removeColumnRight();
 
         let projectName = this.factory.getProjectAcronym(this.issue.project);
-        let projectNameAndId = Utils.getProjectAndIssueId(projectName, this.issue.id);
+        let projectNameAndId = Utils.getProjectAndIssueId(projectName, this.issue.project_id);
         
         // id     
         let issueId = document.getElementById('issue-id');
-        issueId.setAttribute("href", "issue.html?project="+this.issue.project+"&id="+this.issue.id);
+        issueId.setAttribute("href", "issue.html?project="+this.issue.project+"&id="+this.issue.project_id);
         let textnode = document.createTextNode(projectNameAndId);
         issueId.appendChild(textnode);
         

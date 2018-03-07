@@ -137,7 +137,7 @@ class BacklogController extends PageController {
         let droppedElement = document.getElementById(data);
         let issue = this.factory.getIssueByProjectId(droppedElement.id);
         issue.project = project;
-        issue.id = this.factory.getIssuesOfProjectAndType(project, null).length;
+        issue.project_id = this.factory.getIssuesOfProjectAndType(project, null).length;
         this.refresh(issue);
     }
 
@@ -219,10 +219,10 @@ class BacklogController extends PageController {
         
         // id
         let id = document.createElement("a");
-        id.setAttribute("href", "issue.html?project="+issue.project+"&id="+issue.id);
+        id.setAttribute("href", "issue.html?project="+issue.project+"&id="+issue.project_id);
         id.setAttribute("class", "issue-id");
         let projectName = this.factory.getProjectAcronym(issue.project);
-        let projectNameAndId = Utils.getProjectAndIssueId(projectName, issue.id);
+        let projectNameAndId = Utils.getProjectAndIssueId(projectName, issue.project_id);
         let textNodeId = document.createTextNode(projectNameAndId);
         id.appendChild(textNodeId);
         columnRight.appendChild(id);
