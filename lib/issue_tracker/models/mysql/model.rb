@@ -50,11 +50,6 @@ class Model
   end
 
   ###############################
-  def self.update()
-
-  end
-
-  ###############################
   def self.drop_table
     DB_Mysql.con.query(<<eos)
     DROP TABLE IF EXISTS #{self.name.downcase};
@@ -95,10 +90,6 @@ eos
     if keys.empty? && default_key
       columns = "id INTEGER UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT, #{columns}"
       self.property(:id, Integer, unsigned: true, primary_key: true, auto_increment: true)
-    else
-      columns = "id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT, #{columns}"
-      self.property(:id, Integer, unsigned: true, auto_increment: true, key: true)
-      keys << 'id'
     end
 
     keys = keys.empty? ? '' : ", PRIMARY KEY(#{keys.join(',')})"
@@ -117,15 +108,19 @@ eos
   end
 
   ################################
-  def self.all(**fields)
+  def self.where(**fields)
     where = ''
     fields.each do |name, value|
       property = self.property_with_name(name)
       value = self.checksum(value, property[:options][:checksum]) if property[:options].key?(:checksum)
       where += "#{self.name.downcase}.#{name}='#{value}' AND "
     end
-    where = "WHERE #{where[0..-5]}" unless where.empty?
-    sql = "SELECT * FROM #{self.name.downcase} #{where}"
+    return "WHERE #{where[0..-5]}" unless where.empty?
+  end
+
+  ################################
+  def self.all(**fields)
+    sql = "SELECT * FROM #{self.name.downcase} #{self.where(**fields)}"
     rs = DB_Mysql.con.query(sql)
 
     created = []
@@ -148,6 +143,46 @@ eos
     define_method method_name do
       instance_variable_get(variable)
     end
+  end
+
+  #################################
+  def self.max(property, **fields)
+    sql = "SELECT MAX(#{property}) FROM #{self.name.downcase} #{self.where(**fields)}"
+    rs = DB_Mysql.con.query(sql)
+
+    return rs.num_rows == 1 ? rs.fetch_row[0] : nil
+  end
+
+  #################################
+  def self.min(property, **fields)
+    sql = "SELECT MIN(#{property}) FROM #{self.name.downcase} #{self.where(**fields)}"
+    rs = DB_Mysql.con.query(sql)
+
+    return rs.num_rows == 1 ? rs.fetch_row[0] : nil
+  end
+
+  #################################
+  def self.avg(property, **fields)
+    sql = "SELECT AVG(#{property}) FROM #{self.name.downcase} #{self.where(**fields)}"
+    rs = DB_Mysql.con.query(sql)
+
+    return rs.num_rows == 1 ? rs.fetch_row[0] : nil
+  end
+
+  #################################
+  def self.sum(property, **fields)
+    sql = "SELECT SUM(#{property}) FROM #{self.name.downcase} #{self.where(**fields)}"
+    rs = DB_Mysql.con.query(sql)
+
+    return rs.num_rows == 1 ? rs.fetch_row[0] : nil
+  end
+
+  #################################
+  def self.count(property, **fields)
+    sql = "SELECT COUNT(#{property}) FROM #{self.name.downcase} #{self.where(**fields)}"
+    rs = DB_Mysql.con.query(sql)
+
+    return rs.num_rows == 1 ? rs.fetch_row[0] : nil
   end
 
   ################################
