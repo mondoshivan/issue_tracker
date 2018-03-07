@@ -39,6 +39,16 @@ class Model
     end
   end
 
+  ################################
+  def self.update(fields)
+    id = fields['id']
+    fields.delete('id') # the id should never be changed
+    assignments = fields.keys.map{|key| "#{key}='#{fields[key]}'"}.join(', ')
+    query = "UPDATE #{self.name.downcase} SET #{assignments} #{self.where(id: id)}"
+    DB_Mysql.con.query(query)
+    self.last(id: id)
+  end
+
   ###############################
   def self.create(fields)
     query = "INSERT INTO #{self.name.downcase} (#{fields.keys.join(', ')}) " +
@@ -208,7 +218,7 @@ eos
   end
 
   ################################
-  def to_json(a)
+  def to_json(options)
     hash = {}
     instance_variables.each do |name|
       hash[name.to_s.gsub(/^@/, '')] = instance_variable_get(name)

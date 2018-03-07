@@ -5,7 +5,12 @@ class IssueController < Controller
   ################################
   def new_project_id(project)
     id = Issue.max(:project_id, project: project).to_i
-    id ? id+1 : 1 # if id is nil, the first issue gets the project_id -> 1
+    id ? id+1 : 1 # if id is nil, the first issue gets project_id -> 1
+  end
+
+  ################################
+  def redirect_url(params)
+    "../#{params['redirect'].gsub(/^\//, '')}"
   end
 
   before do
@@ -29,7 +34,11 @@ class IssueController < Controller
         user_assigned: session[:user].id,
         user_created: session[:user].id
     )
-    redirect to("../#{params['redirect'].gsub(/^\//, '')}")
+    redirect to(redirect_url) if params['redirect']
+  end
+
+  post '/update' do
+    Issue.update(params)
   end
 
   get '/all' do
