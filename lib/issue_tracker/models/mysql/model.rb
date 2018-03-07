@@ -9,8 +9,8 @@ require 'issue_tracker/models/mysql/data_types/text'
 class Model
 
   ################################
-  def self.property(*args)
-    self.properties << {
+  def self.create_property(*args)
+    {
         name: args[0],
         type: args[1],
         options: args[2] ||= {}
@@ -18,8 +18,18 @@ class Model
   end
 
   ################################
+  def self.property(*args)
+    self.properties << self.create_property(*args)
+  end
+
+  ################################
   def self.properties
     @properties ||= []
+  end
+
+  ################################
+  def self.properties=(p)
+    @properties = p
   end
 
   ################################
@@ -89,7 +99,7 @@ eos
     # prepare the default key
     if keys.empty? && default_key
       columns = "id INTEGER UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT, #{columns}"
-      self.property(:id, Integer, unsigned: true, primary_key: true, auto_increment: true)
+      self.properties.unshift(self.create_property(:id, Integer, unsigned: true, primary_key: true, auto_increment: true))
     end
 
     keys = keys.empty? ? '' : ", PRIMARY KEY(#{keys.join(',')})"
