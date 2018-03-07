@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'sinatra'
 gem 'sinatra-flash'
 gem 'rack-protection'
+gem 'thin'
 
 group :production, :development do
     gem 'json'
