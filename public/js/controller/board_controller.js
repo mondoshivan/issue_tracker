@@ -41,8 +41,6 @@ class BoardController extends PageController {
     addIssueElements(issues) {
         let issuesDiv = document.getElementById('issues');
 
-        console.log("addIssueElements");
-
         for (let i=0; i<issues.length; i++) {
             let projectName = this.factory.getProjectAcronym(issues[i].project);
             let projectNameAndId = Utils.getProjectAndIssueId(projectName, issues[i].id);

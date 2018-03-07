@@ -7,6 +7,7 @@ class StateController < Controller
   end
 
   get '/all' do
+    content_type :json
     State.all.to_json
   end
 

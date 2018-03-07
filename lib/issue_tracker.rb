@@ -9,6 +9,7 @@ require 'json'
 require 'slim'
 require 'sass'
 require 'coffee-script'
+require 'thin'
 
 # Controllers
 require 'issue_tracker/controllers/controller'
@@ -34,6 +35,7 @@ class IssueTracker < Controller
 
   configure do
     set :config_dir, settings.root + '/config'
+    set :server, "thin"
   end
 
   configure :production do

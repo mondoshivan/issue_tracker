@@ -7,6 +7,7 @@ class UserController < Controller
   end
 
   get '/all' do
+    content_type :json
     User.all.to_json
   end
 

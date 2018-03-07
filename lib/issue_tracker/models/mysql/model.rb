@@ -41,8 +41,7 @@ class Model
 
   ################################
   def self.update(fields)
-    id = fields['id']
-    fields.delete('id') # the id should never be changed
+    id = fields.delete(:id) # the id should never be changed
     assignments = fields.keys.map{|key| "#{key}='#{fields[key]}'"}.join(', ')
     query = "UPDATE #{self.name.downcase} SET #{assignments} #{self.where(id: id)}"
     DB_Mysql.con.query(query)
@@ -113,8 +112,6 @@ eos
     end
 
     keys = keys.empty? ? '' : ", PRIMARY KEY(#{keys.join(',')})"
-
-    puts "CREATE TABLE IF NOT EXISTS #{self.name.downcase} (#{columns}#{keys})"
     DB_Mysql.con.query("CREATE TABLE IF NOT EXISTS #{self.name.downcase} (#{columns}#{keys})")
   end
 
@@ -218,11 +215,11 @@ eos
   end
 
   ################################
-  def to_json(options)
+  def to_json(options={})
     hash = {}
     instance_variables.each do |name|
       hash[name.to_s.gsub(/^@/, '')] = instance_variable_get(name)
     end
-    hash.to_json
+    JSON.pretty_generate(hash, options)
   end
 end

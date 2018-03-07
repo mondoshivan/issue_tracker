@@ -7,6 +7,7 @@ class ProjectController < Controller
   end
 
   get '/all' do
+    content_type :json
     Project.all.to_json
   end
 

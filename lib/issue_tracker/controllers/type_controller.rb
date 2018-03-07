@@ -7,6 +7,7 @@ class TypeController < Controller
   end
 
   get '/all' do
+    content_type :json
     Type.all.to_json
   end
 

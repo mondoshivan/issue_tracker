@@ -7,6 +7,7 @@ class SprintController < Controller
   end
 
   get '/all' do
+    content_type :json
     Sprint.all.to_json
   end
 
