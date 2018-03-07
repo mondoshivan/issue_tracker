@@ -66,6 +66,17 @@ class Factory {
         return null;
     }
 
+    setIssueState(id, state) {
+        for (let i=0; i<this.issues.length; i++) {
+            if (this.issues[i].id === id) {
+                this.issues[i].state = state;
+                postData('/issue/update', this.issues[i], function(data){
+                    console.log(data);
+                });
+            }
+        }
+    }
+
     getStateIdByAcronym(name) {
         for (let i=0; i<this.states.length; i++) {
             if (this.states[i].acronym === name) { return this.states[i].id }

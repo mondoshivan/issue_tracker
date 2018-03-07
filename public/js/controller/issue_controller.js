@@ -63,14 +63,14 @@ class IssueController extends PageController {
             let exists = Utils.existsInDataset(datalistOptions.childNodes, e.target.value);
             if (exists) {
                 let user = controller.factory.getUserByName(e.target.value);
-                controller.issue.userAssigned = user.id;
+                controller.issue.user_assigned = user.id;
                 let userString = controller.factory.getUserName(user.id);
                 document.getElementById('user-assigned').innerHTML = userString;
                 inputElement.setAttribute("value", userString);
                 // let form = inputElement.parentNode;
                 // form.submit();
             } else {
-                let user = controller.factory.getUserName(controller.issue.userAssigned);
+                let user = controller.factory.getUserName(controller.issue.user_assigned);
                 document.getElementById('user-assigned').innerHTML = user;
                 inputElement.setAttribute("value", user);
             }
@@ -82,14 +82,14 @@ class IssueController extends PageController {
             let exists = Utils.existsInDataset(datalistOptions.childNodes, e.target.value);
             if (exists) {
                 let user = controller.factory.getUserByName(e.target.value);
-                controller.issue.userCreated = user.id;
+                controller.issue.user_created = user.id;
                 let userString = controller.factory.getUserName(user.id);
                 document.getElementById('user-created').innerHTML = userString;
                 inputElement.setAttribute("value", userString);
                 // let form = inputElement.parentNode;
                 // form.submit();
             } else {
-                let user = controller.factory.getUserName(controller.issue.userCreated);
+                let user = controller.factory.getUserName(controller.issue.user_created);
                 document.getElementById('user-created').innerHTML = user;
                 inputElement.setAttribute("value", user);
             }
@@ -143,18 +143,18 @@ class IssueController extends PageController {
         issueDescription.appendChild(textnode);
         
         // created
-        let user = this.factory.getUser(this.issue.userCreated);
-        let userCreated = document.getElementById('user-created');
-        userCreated.appendChild(document.createTextNode(user.first + " " + user.second));
-        let userCreatedInput = document.getElementById('user-created-input');
-        userCreatedInput.setAttribute("value", user.first + " " + user.second);
+        let user = this.factory.getUser(this.issue.user_created);
+        let user_created = document.getElementById('user-created');
+        user_created.appendChild(document.createTextNode(user.first + " " + user.second));
+        let user_createdInput = document.getElementById('user-created-input');
+        user_createdInput.setAttribute("value", user.first + " " + user.second);
         
         // assigned
-        user = this.factory.getUser(this.issue.userAssigned);
-        let userAssigned = document.getElementById('user-assigned');
-        userAssigned.appendChild(document.createTextNode(user.first + " " + user.second));
-        let userAssignedInput = document.getElementById('user-assigned-input');
-        userAssignedInput.setAttribute("value", user.first + " " + user.second);
+        user = this.factory.getUser(this.issue.user_assigned);
+        let user_assigned = document.getElementById('user-assigned');
+        user_assigned.appendChild(document.createTextNode(user.first + " " + user.second));
+        let user_assignedInput = document.getElementById('user-assigned-input');
+        user_assignedInput.setAttribute("value", user.first + " " + user.second);
 
         // comments
         let issueComments = document.getElementById('issue-comments');
@@ -217,16 +217,16 @@ class IssueController extends PageController {
         });
 
         // assigned autocomplete
-        let userAssignedOptions = document.getElementById('user-assigned-options');
-        let userCreatedOptions = document.getElementById('user-created-options');
+        let user_assignedOptions = document.getElementById('user-assigned-options');
+        let user_createdOptions = document.getElementById('user-created-options');
         for (let i=0; i<this.factory.users.length; i++) {
             user = this.factory.users[i];
             let assignedOption = document.createElement("option");
             let createdOption = document.createElement("option");
             assignedOption.setAttribute("value", user.first + " " + user.second);
             createdOption.setAttribute("value", user.first + " " + user.second);
-            userAssignedOptions.appendChild(assignedOption);
-            userCreatedOptions.appendChild(createdOption);
+            user_assignedOptions.appendChild(assignedOption);
+            user_createdOptions.appendChild(createdOption);
         }
     }
     

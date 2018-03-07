@@ -74,7 +74,7 @@ class BacklogController extends PageController {
             // assigned user image
             let userImage = document.createElement("div");
             userImage.setAttribute("class", "avatar");
-            userImage.style.backgroundImage = "url('img/users/"+issues[i].userAssigned+".jpg')";
+            userImage.style.backgroundImage = "url('img/users/"+issues[i].user_assigned+".jpg')";
             issue.appendChild(userImage);
 
             // issue name
@@ -259,13 +259,13 @@ class BacklogController extends PageController {
         columnRight.appendChild(
             Utils.createFloatingKeyValuePair(
                 "Assignee:",
-                this.factory.getUserName(issue.userAssigned)
+                this.factory.getUserName(issue.user_assigned)
             )
         );
         columnRight.appendChild(
             Utils.createFloatingKeyValuePair(
                 "Created:",
-                this.factory.getUserName(issue.userCreated)
+                this.factory.getUserName(issue.user_created)
             )
         );
 

@@ -12,7 +12,7 @@ class PageController {
                 "Mark",
                 "qf-mark",
                 function(issue) {
-                    return issue.userAssigned === 1;
+                    return issue.user_assigned === 1;
                 },
                 false,
                 true
@@ -21,7 +21,7 @@ class PageController {
                 "Edward",
                 "qf-edward",
                 function(issue) {
-                    return issue.userAssigned === 2;
+                    return issue.user_assigned === 2;
                 },
                 false,
                 true
@@ -30,7 +30,7 @@ class PageController {
                 "Steve",
                 "qf-steve",
                 function(issue) {
-                    return issue.userAssigned === 3;
+                    return issue.user_assigned === 3;
                 },
                 false,
                 true
@@ -39,7 +39,7 @@ class PageController {
                 "Bill",
                 "qf-bill",
                 function(issue) {
-                    return issue.userAssigned === 4;
+                    return issue.user_assigned === 4;
                 },
                 false,
                 true

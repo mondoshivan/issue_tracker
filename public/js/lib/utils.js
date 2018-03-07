@@ -145,4 +145,13 @@ class Utils {
     static twoDigits(number) {
         return ("0" + number).slice(-2);
     }
+
+    static urlParams(obj) {
+        let str = [];
+        for (let p in obj)
+            if (obj.hasOwnProperty(p)) {
+                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            }
+        return str.join("&");
+    }
 }

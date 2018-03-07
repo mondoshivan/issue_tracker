@@ -10,8 +10,8 @@ class Issue {
         this.project = parseInt(data.project);
         this.project_id = parseInt(data.project_id);
         this.type = parseInt(data.type);
-        this.userCreated = parseInt(data.user_created);
-        this.userAssigned = parseInt(data.user_assigned);
+        this.user_created = parseInt(data.user_created);
+        this.user_assigned = parseInt(data.user_assigned);
         this.state = parseInt(data.state);
         this.sprint = parseInt(data.sprint);
     }
