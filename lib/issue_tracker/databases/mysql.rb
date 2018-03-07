@@ -89,8 +89,8 @@ class DB_Mysql < Database
           type: 1,
           state: 1,
           sprint: 1,
-          user_assigned: 'sjobs',
-          user_created: 'sjobs'
+          user_assigned: 1,
+          user_created: 1
       )
     end
   end
