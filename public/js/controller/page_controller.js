@@ -4,8 +4,6 @@ class PageController {
     
     constructor() {
         this.factory = new Factory();
-        this.getRevision();
-
         this.dialogController = null;
         this.quickFilter = new QuickFilter([
             new Filter(
@@ -62,14 +60,6 @@ class PageController {
         window.onresize = function(event) {
             controller.setWindowSize();
         };
-    }
-
-    getRevision() {
-        getData('/project/revision', function(data) {
-            console.log("==> received revision");
-            console.log(data);
-            controller.factory.revision = data;
-        });
     }
 
     getWindowHeight() {

@@ -11,6 +11,14 @@ class Factory {
         this.revision = null;
     }
 
+    getProjectRevision(id) {
+        let project = this.getProject(id);
+        getData('/project/'+project.acronym+'/revision', function(data) {
+            console.log("==> received revision");
+            console.log(data);
+        });
+    }
+
     setIssues(issues) {
         this.parseIssues(issues);
     }
@@ -117,6 +125,13 @@ class Factory {
     getProjectAcronym(id) {
         for (let i=0; i<this.projects.length; i++) {
             if (this.projects[i].id === id) { return this.projects[i].acronym }
+        }
+        return null;
+    }
+
+    getProject(id) {
+        for (let i=0; i<this.projects.length; i++) {
+            if (this.projects[i].id === id) { return this.projects[i] }
         }
         return null;
     }

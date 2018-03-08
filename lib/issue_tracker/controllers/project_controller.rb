@@ -11,4 +11,9 @@ class ProjectController < Controller
     Project.all.to_json
   end
 
+  get '/:acronym/revision' do
+    project = Project.first(acronym: params['acronym'])
+    {revision: project.revision}.to_json unless project.nil?
+  end
+
 end
