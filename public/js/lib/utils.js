@@ -18,10 +18,6 @@ class Utils {
         }
     }
 
-    static addDropDownSelection(element, value) {
-        element.innerHTML = Utils.capitalize(value);
-    }
-
     static getDropDownSelection(parent) {
         return Utils.getChildsWithClassName(parent, "dropdown-selection")[0].innerHTML;
     }
@@ -33,32 +29,63 @@ class Utils {
         let content = Utils.getChildsWithClassName(document.getElementById(id), "dropdown-content")[0];
         let selection = Utils.getChildsWithClassName(document.getElementById(id), "dropdown-selection")[0];
         Utils.addDropDownContent(content, values);
-        Utils.addDropDownSelection(selection, selected);
+        selection.innerHTML = Utils.capitalize(selected);
 
         for (let i=0; i<content.childNodes.length; i++) {
             content.childNodes[i].setAttribute("onclick", "Utils.dropDownSelect(this, '"+id+"');");
         }
     }
 
+    static keyValueContainerInline(key_string, value_element, key_required) {
+        let container = document.createElement("div");
+        container.classList.add("key-value-container");
+
+        // key
+        let key = document.createElement("div");
+        key.classList.add("keys-inline");
+        let key_text = document.createTextNode(key_string);
+        key.appendChild(key_text);
+        if (key_required === true) {
+            let required = document.createElement("span");
+            required.classList.add("font-red");
+            required.setAttribute("title", "This property is required");
+            key.appendChild(required);
+        }
+        container.appendChild(key);
+
+        // value
+        let value = document.createElement("div");
+        value.classList.add("inline-block");
+        value.appendChild(value_element);
+        container.appendChild(value);
+
+        return container;
+    }
+
     // id: of the dropdown container -> String
     // selected: value which is visible -> String
     // options: of the dropdown list -> ['value', 'value2', ...]
-    static createDropDownMenu(selected, options, eventListener) {
+    static createDropDownMenu(id) {
         let container = document.createElement("div");
+        container.setAttribute("id", id);
         container.setAttribute("class", "dropdown");
 
         let selection = document.createElement("span");
         selection.setAttribute("class", "dropdown-selection");
-        selection.appendChild(document.createTextNode(selected));
+        selection.appendChild(document.createTextNode(""));
         container.appendChild(selection);
 
         let content = document.createElement("div");
         content.setAttribute("class", "dropdown-content");
-        Utils.addDropDownContent(content, options);
-        eventListener(content);
         container.appendChild(content);
 
         return container;
+    }
+
+    static createSeperator() {
+        let node = document.createElement("div");
+        node.classList.add("seperator");
+        return node;
     }
 
     // clickedElement: the clicked element

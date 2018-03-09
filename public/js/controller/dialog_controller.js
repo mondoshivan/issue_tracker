@@ -2,7 +2,8 @@
 
 class DialogController {
     
-    constructor(parentController) {
+    constructor(view, parentController) {
+        this.view = view;
         this.parentController = parentController;
 
         document.getElementById("dialog").addEventListener('click', function (e) {
@@ -16,67 +17,25 @@ class DialogController {
         document.getElementById("modal").addEventListener('click', function (e) {
             controller.dialogController.hide();
         });
-        
-        $("#new-issue").find("button[type='button']").click(function() {
-            let project_acronym = Utils.getDropDownSelection(document.getElementById("project"));
-            let project_id = controller.factory.getProjectId(project_acronym);
-            let type_name = Utils.getDropDownSelection(document.getElementById("type"));
-            let type_id = controller.factory.getTypeIdByName(type_name);
-            let issueName = document.getElementById("name");
-            let description = document.getElementById("description");
-            let state_id = controller.factory.getStateIdByAcronym("s-td");
-            let redirect = window.location.pathname;
-    
-            let errors = [];
-            if (project_id === null)         { errors.push(document.getElementById("project")) }
-            if (type_id === null)            { errors.push(document.getElementById("type")) }
-            if (issueName.value === "")      { errors.push(issueName) }
-            if (description.value === "")    { errors.push(description) }
-    
-            for (let i=0; i<errors.length; i++) {
-                errors[i].classList.add("error");
-            }
-    
-            // cancel
-            if (errors.length !== 0) { return; }
-    
-            // insert new issue
-            controller.factory.newIssue({
-                "project": project_id,
-                "type": type_id,
-                "name": issueName.value,
-                "description": description.value,
-                "state": state_id,
-                "position": "backlog"
-            });
 
-            let form = $('#new-issue');
-            form.append($("<input>").attr("type", "hidden").attr("name", "project").val(project_id));
-            form.append($("<input>").attr("type", "hidden").attr("name", "type").val(type_id));
-            form.append($("<input>").attr("type", "hidden").attr("name", "state").val(state_id));
-            form.append($("<input>").attr("type", "hidden").attr("name", "redirect").val(redirect));
-            form.submit();
+        this.header_h1 = null;
+    }
 
-            controller.dialogController.hide();
-            controller.refresh(null);
-        });
+    setHeader(title) {
+        let textNodeName = document.createTextNode(title);
+        this.header_h1.appendChild(textNodeName);
+    }
 
-        this.projectSelected    = this.parentController.factory.getProjectAcronyms()[0];
-        this.typeSelected       = this.parentController.factory.types[0];
+    addViews() {
+        // header
+        let header = document.createElement("div");
+        header.classList.add("header");
+        this.header_h1 = document.createElement("h1");
+        header.appendChild(this.header_h1);
+        this.view.appendChild(header);
     }
     
     show() {
-        Utils.dropDownPrepare(
-            'type',
-            this.parentController.factory.getTypeNames(),
-            this.parentController.factory.getTypeNameById(this.typeSelected.id)
-        );
-        Utils.dropDownPrepare(
-            'project',
-            this.parentController.factory.getProjectAcronyms(),
-            this.projectSelected
-        );
-
         let overlay = document.getElementById("overlay");
         overlay.style.display = "block";
         overlay = document.getElementById("modal");
@@ -89,6 +48,4 @@ class DialogController {
         overlay = document.getElementById("overlay");
         overlay.style.display = "none";
     }
-    
-    
 }

@@ -9,8 +9,8 @@ class IssueController < Controller
   end
 
   ################################
-  def redirect_url(params)
-    "../#{params['redirect'].gsub(/^\//, '')}"
+  def redirect_url(url)
+    "../#{url.gsub(/^\//, '')}"
   end
 
   before do
@@ -34,7 +34,7 @@ class IssueController < Controller
         user_assigned: session[:user_id],
         user_created: session[:user_id]
     )
-    redirect to(redirect_url) if params['redirect']
+    redirect to(redirect_url(params['redirect'])) if params['redirect']
   end
 
   post '/update' do

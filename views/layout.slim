@@ -46,6 +46,7 @@ html lang="en"
     script src="js/lib/quick_filter.js"
     script src="js/lib/message.js"
     script src="js/controller/dialog_controller.js"
+    script src="js/controller/new_issue_dialog_controller.js"
     script src="js/controller/page_controller.js"
 
   body onload="controller = new #{@controller}(); controller.start();"
@@ -63,40 +64,40 @@ html lang="en"
     #overlay
     #modal
       #dialog
-        .header
-          h1 New Issue
-        form id="new-issue" method="post" action="/issue"
-          fieldset
-            .key-value-container
-              div class="keys-inline"
-                | Project
-                span class="font-red" title="This property is required" *
-              .inline-block
-                #project class="dropdown"
-                  .dropdown-selection
-                  .dropdown-content
-            .key-value-container
-              .keys-inline
-                | Type
-                span class="font-red" title="This property is required" *
-              .inline-block
-                #type class="dropdown"
-                  .dropdown-selection
-                  .dropdown-content
-          .seperator
-          fieldset
-            .key-value-container
-              label class="keys-float" for="name"
-                | Name
-                span class="font-red" title="This property is required" *
-              .value-width
-                input type= "text" id= "name" name= "name" accesskey= "n" value= "" title= "Enter the issue name" maxlength= "50"
-            .key-value-container
-              label class="keys-float" for="description"
-                | Description
-                span class="font-red" title="This property is required" *
-              .value-width
-                textarea id="description" name="description" accesskey="d" maxlength="2000"
-            .submit-buttons
-              button class="button" type="button" submit
-              button class="button" type="reset" reset
+        /.header
+        /  h1 New Issue
+        /form id="new-issue" method="post" action="/issue"
+        /  fieldset
+        /    .key-value-container
+        /      div class="keys-inline"
+        /        | Project
+        /        span class="font-red" title="This property is required" *
+        /      .inline-block
+        /        #project class="dropdown"
+        /          .dropdown-selection
+        /          .dropdown-content
+        /    .key-value-container
+        /      .keys-inline
+        /        | Type
+        /        span class="font-red" title="This property is required" *
+        /      .inline-block
+        /        #type class="dropdown"
+        /          .dropdown-selection
+        /          .dropdown-content
+        /  .seperator
+        /  fieldset
+        /    .key-value-container
+        /      label class="keys-float" for="name"
+        /        | Name
+        /        span class="font-red" title="This property is required" *
+        /      .value-width
+        /        input type= "text" id= "name" name= "name" accesskey= "n" value= "" title= "Enter the issue name" maxlength= "50"
+        /    .key-value-container
+        /      label class="keys-float" for="description"
+        /        | Description
+        /        span class="font-red" title="This property is required" *
+        /      .value-width
+        /        textarea id="description" name="description" accesskey="d" maxlength="2000"
+        /    .submit-buttons
+        /      button class="button" type="button" submit
+        /      button class="button" type="reset" reset

@@ -74,17 +74,6 @@ class Factory {
         return null;
     }
 
-    setIssueState(id, state) {
-        for (let i=0; i<this.issues.length; i++) {
-            if (this.issues[i].id === id) {
-                this.issues[i].state = state;
-                postData('/issue/update', this.issues[i], function(data){
-                    console.log(data);
-                });
-            }
-        }
-    }
-
     getStateIdByAcronym(name) {
         for (let i=0; i<this.states.length; i++) {
             if (this.states[i].acronym === name) { return this.states[i].id }
@@ -185,12 +174,10 @@ class Factory {
         return this.getIssue(this.getProjectId(project), id);
     }
 
-    updateIssueState(project, project_id, state) {
-
-    }
-
-    updateIssue(project, project_id, issue) {
-
+    updateIssue(issue) {
+        postData('/issue/update', issue, function(success, data){
+            // todo: handle failures
+        });
     }
     
     getUser(id) {

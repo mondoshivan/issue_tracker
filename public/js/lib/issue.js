@@ -15,5 +15,9 @@ class Issue {
         this.state = parseInt(data.state);
         this.sprint = parseInt(data.sprint);
     }
+
+    setState(state) {
+        this.state = state;
+    }
 }
 

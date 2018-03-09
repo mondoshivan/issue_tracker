@@ -149,7 +149,8 @@ class BoardController extends PageController {
                 let newState = this.factory.getStateIdByAcronym(className);
                 // check if the issue state changed
                 if (issue.state === newState) { return; }
-                this.factory.setIssueState(issue.id, newState);
+                issue.setState(newState);
+                this.factory.updateIssue(issue);
                 break;
             }
         }

@@ -244,7 +244,8 @@ class PageController {
                             controller.factory.sprints = data;
                             getData('/issue/all', function(data){
                                 controller.factory.setIssues(data);
-                                controller.dialogController = new DialogController(controller);
+                                let dialog = document.getElementById("dialog");
+                                controller.dialogController = new NewIssueDialogController(dialog, controller);
                                 controller.refresh(null);
                             });
                         });

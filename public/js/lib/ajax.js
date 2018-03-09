@@ -36,7 +36,7 @@ function getComment(projectNameAndId, callback) {
     xmlHttp.send();
 }
 
-function postData(resource, params, callback) {
+function postData(resource, sending_data, callback) {
     $.ajax
     ({
         type: "POST",
@@ -44,12 +44,15 @@ function postData(resource, params, callback) {
         dataType: 'json',
         contentType: 'application/json',
         async: true,
-        data: JSON.stringify(params),
-        success: function (data) {
-            callback(data);
+        data: JSON.stringify(sending_data),
+        success: function (receiving_data) {
+            let success = true;
+            callback(success, receiving_data);
         },
         failure: function(errMsg) {
             console.log(errMsg);
+            let success = false;
+            callback(success)
         }
     })
 
