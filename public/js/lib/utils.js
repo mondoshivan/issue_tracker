@@ -49,6 +49,8 @@ class Utils {
             let required = document.createElement("span");
             required.classList.add("font-red");
             required.setAttribute("title", "This property is required");
+            let asterisk = document.createTextNode("*");
+            required.appendChild(asterisk);
             key.appendChild(required);
         }
         container.appendChild(key);
@@ -60,6 +62,46 @@ class Utils {
         container.appendChild(value);
 
         return container;
+    }
+
+    static keyValueContainerFloat(key_string, value_element, key_required) {
+        let container = document.createElement("div");
+        container.classList.add("key-value-container");
+
+        // key
+        let key = document.createElement("label");
+        key.classList.add("keys-float");
+        key.setAttribute("for", "");
+        let key_text = document.createTextNode(key_string);
+        key.appendChild(key_text);
+        if (key_required === true) {
+            let required = document.createElement("span");
+            required.classList.add("font-red");
+            required.setAttribute("title", "This property is required");
+            let asterisk = document.createTextNode("*");
+            required.appendChild(asterisk);
+            key.appendChild(required);
+        }
+        container.appendChild(key);
+
+        // value
+        let value = document.createElement("div");
+        value.classList.add("value-width");
+        value.appendChild(value_element);
+        container.appendChild(value);
+
+        return container;
+    }
+
+    static createElement(type, options, append) {
+        let node = document.createElement(type);
+        Object.keys(options).forEach(function(key) {
+            node.setAttribute(key, options[key]);
+        });
+        if (append) {
+            node.appendChild(append);
+        }
+        return node;
     }
 
     // id: of the dropdown container -> String
